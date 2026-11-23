@@ -23,6 +23,8 @@ interface ProjectPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const instant = false;
+
 export async function generateStaticParams() {
   const projects = await getProjects();
   return projects.map((project) => ({
