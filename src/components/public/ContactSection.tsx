@@ -50,7 +50,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
 
       <div className="relative z-10 flex flex-col justify-between">
         {/* Giant Headline */}
-        <div>
+        <div className="anim-contact-headline will-change-transform">
           <h2 className="font-['Space_Grotesk'] text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-white uppercase leading-[0.92]">
             LET&apos;S <br />
             WORK <span className="text-[#ccff00]">TOGETHER.</span>

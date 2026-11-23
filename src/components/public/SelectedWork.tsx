@@ -24,7 +24,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
   return (
     <section id="work" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-[#222329]/60">
+      <div className="anim-section-header flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-[#222329]/60">
         <div>
           <div className="flex items-center gap-3">
             <h2 className="font-['Space_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">
@@ -70,7 +70,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
           return (
             <div
               key={project.id}
-              className="group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] transition-all duration-500 overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60"
+              className="anim-project-card group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] transition-all duration-500 overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 will-change-transform"
             >
               {/* Inner ambient glow background matching the card's accent */}
               <div
