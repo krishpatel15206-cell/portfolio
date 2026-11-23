@@ -23,6 +23,9 @@ export interface Project {
   figmaUrl?: string;
   liveUrl?: string;
   githubUrl?: string;
+  behanceUrl?: string;
+  caseStudyPdfUrl?: string;
+  caseStudyExternalUrl?: string;
   featured: boolean;
   published: boolean;
   order: number;

@@ -6,7 +6,7 @@ export const initialProfile: Profile = {
   tagline: "Designing digital experiences that are intuitive, engaging and meaningful.",
   alternativeHero: "Good design isn't just how it looks. It's how it works, feels and connects.",
   bioParagraphs: [
-    "I'm Krish Patel, a Computer Science and Design student passionate about UI/UX design, visual storytelling and creating user-friendly digital experiences.",
+    "I'm Krish Patel, a Computer Science and Design student passionate about UI/UX design and creating meaningful digital experiences.",
     "I enjoy transforming ideas into visually engaging and intuitive interfaces. My interests include interface design, wireframing, prototyping, visual storytelling and creating user-friendly digital products.",
     "With a background in computer science, I also understand the technical side of digital products, allowing me to connect design thinking with practical implementation.",
     "I'm continuously learning, experimenting with design tools and building projects to improve my creative and technical skills."
@@ -17,7 +17,7 @@ export const initialProfile: Profile = {
   linkedin: "https://linkedin.com/in/krishpatel-design",
   github: "https://github.com/krishpatel",
   figma: "https://figma.com/@krishpatel",
-  cgpa: "8.25", // Editable as requested
+  cgpa: "8.25", // Editable field (previously shared 8.17 and 8.25)
   diplomaCgpa: "7.51/10",
   sscCgpa: "75.66%",
   avatarUrl: "/images/krish-hero-crop.png",
@@ -31,31 +31,28 @@ export const initialProjects: Project[] = [
     slug: "thrift-avenue",
     title: "Thrift Avenue",
     category: "UI/UX Design and Branding",
-    subtitle: "A sustainable fashion mobile commerce concept focused on circular clothing and community-driven thrifting.",
-    description: "A thrift fashion brand concept developed as a comprehensive UI/UX and visual branding project. Includes brand identity, logo design, brochure design, email design, design research, user personas, and high-fidelity mobile app UI.",
+    subtitle: "A thrift fashion brand concept developed as a UI/UX and visual branding project.",
+    description: "Brand identity, logo design, brochure design, email design, design research, user personas, and UI/UX design work in Figma.",
     fullCaseStudy: {
-      overview: "Thrift Avenue was conceptualized to address the lack of intuitive, trustworthy platforms for second-hand vintage fashion enthusiasts in India. The goal was to eliminate the clutter of traditional marketplace apps by introducing an editorial, curated shopping experience.",
-      challenge: "Second-hand apparel platforms often feel disorganized and unpolished. Users struggle with sizing ambiguities, trust verification, and inefficient search filters.",
-      research: "Conducted interviews with 15 vintage clothing shoppers aged 18-28. Key insights revealed that 82% wanted aesthetic item storytelling and verified seller ratings over generic product catalogs.",
-      solution: "Created an immersive mobile interface in Figma featuring swipeable moodboard-style lookbooks, interactive size comparison guides, and a seamless 3-tap checkout flow.",
+      overview: "A comprehensive thrift fashion brand concept developed as a UI/UX and visual branding project. Focused on brand identity, logo creation, brochure design, email templates, and high-fidelity mobile app interfaces.",
+      challenge: "Conducting user research and creating realistic user personas for thrifting enthusiasts, designing an aesthetic brand identity, and organizing fashion categories intuitively.",
+      solution: "Created the complete visual identity, typography, color palette, brochure, email design, and interactive mobile UI prototype in Figma.",
       features: [
-        "Curated visual discovery feed with dynamic category filters",
-        "Interactive size estimation and condition transparency badges",
-        "Seller authenticity profiles with verified customer reviews",
-        "Direct chat & offer negotiation with responsive notifications",
-        "Cohesive visual branding including custom logo, iconography, and typography"
+        "Brand identity & logo design",
+        "Brochure and email promotional layouts",
+        "Design research & user personas",
+        "Intuitive mobile catalog and checkout UI in Figma"
       ],
-      results: "Produced over 45 high-fidelity screens, an interactive Figma prototype with 100+ transitions, and a complete design system adhering to 8pt grid standards.",
-      learnings: "Reinforced the importance of micro-interactions and negative space in elevating a bargain/thrift product into a premium retail experience."
+      results: "Complete UI/UX design and branding showcase developed in Figma.",
+      learnings: "Deepened practical skills in visual identity systems, typography hierarchy, and mobile layout design."
     },
     coverImage: "/images/project-thrift-avenue.jpg",
     images: [
       "/images/project-thrift-avenue.jpg",
       "/images/thrift-card-crop.png"
     ],
-    tags: ["UI/UX", "Branding", "Research", "Figma", "Design System"],
+    tags: ["UI/UX", "Branding", "Research", "Figma", "Logo Design"],
     accentColor: "#CCFF00",
-    client: "Concept Brand Project",
     year: "2026",
     figmaUrl: "https://figma.com",
     featured: true,
@@ -65,34 +62,32 @@ export const initialProjects: Project[] = [
   {
     id: "proj-2",
     slug: "smart-hire",
-    title: "Smart Hire",
+    title: "Smart Hire — Job Recruitment System",
     category: "Full-Stack Web Application",
-    subtitle: "An intelligent, AI-assisted recruitment portal connecting candidates and recruiters through structured screening.",
-    description: "A job recruitment platform designed to connect candidates and recruiters through a structured hiring process with candidate portal, recruiter dashboard, resume parsing, anonymous screening, and AI-based rejection feedback.",
+    subtitle: "A job recruitment platform designed to connect candidates and recruiters through a structured hiring process.",
+    description: "Candidate portal, recruiter portal, job posting, job search and filtering, resume upload (PDF/DOC), application tracking, anonymous candidate applications, AI-based feedback for rejected candidates, and skill-based job recommendations.",
     fullCaseStudy: {
-      overview: "Smart Hire bridges the communication gap between aspiring talent and talent acquisition teams by providing transparent real-time tracking, unbiased screening, and actionable AI feedback.",
-      challenge: "Recruiters are overwhelmed by unstructured PDF resumes, while applicants suffer from lack of feedback and implicit bias during early resume reviews.",
-      research: "Benchmarked popular portals (LinkedIn, Indeed) to discover pain points: applicants felt ghosted after rejections, and recruiters spent under 6 seconds per resume skimming without automated sorting.",
-      solution: "Designed an intuitive dual-portal interface (Candidate & Recruiter) paired with automated skill-based matching and automated constructive feedback.",
+      overview: "Smart Hire is a comprehensive recruitment platform designed to connect job seekers and talent recruiters through an organized, intelligent application pipeline.",
+      challenge: "Building intuitive interfaces for two distinct user groups (job seekers and recruiters) while structuring complex features like resume parsing, status tracking, and automated feedback.",
+      solution: "Designed user-friendly UI for both candidate and recruiter portals, integrated with React.js, Node.js, Express.js, MongoDB, Socket.io, JWT authentication, and OpenAI integration.",
       features: [
-        "Candidate portal with one-click resume upload (PDF/DOC)",
-        "Recruiter dashboard with pipeline stages (Applied, Screening, Interview, Offer)",
-        "Anonymous application mode to prevent demographic bias",
-        "AI-driven constructive feedback for rejected applicants",
-        "Real-time application status notifications via Socket.io",
-        "Advanced job search with salary, location, and tech stack filters"
+        "Candidate portal with resume upload (PDF/DOC)",
+        "Recruiter dashboard for job postings and applicant review",
+        "Real-time application status tracking",
+        "Anonymous candidate screening mode",
+        "AI-based feedback for rejected candidates",
+        "Skill-based job recommendation engine"
       ],
-      results: "Designed end-to-end Figma UI/UX and integrated with a React.js, Node.js, Express, and MongoDB backend with JWT authentication.",
-      learnings: "Gained deep insights into complex dashboard information architecture and designing for high-density analytical screens."
+      results: "Built end-to-end full-stack prototype with React.js, Express, and MongoDB.",
+      learnings: "Strengthened experience in dashboard design, relational and document databases, and authentication flows."
     },
     coverImage: "/images/project-smart-hire.jpg",
     images: [
       "/images/project-smart-hire.jpg",
       "/images/smarthire-card-crop.png"
     ],
-    tags: ["Web App", "UI/UX", "Full-Stack", "React.js", "Node.js"],
+    tags: ["Web App", "UI/UX", "Full-Stack", "React.js", "Node.js", "MongoDB"],
     accentColor: "#A855F7",
-    client: "Academic Capstone Project",
     year: "2025",
     figmaUrl: "https://figma.com",
     githubUrl: "https://github.com",
@@ -105,20 +100,20 @@ export const initialProjects: Project[] = [
     slug: "pet-adoption-system",
     title: "Pet Adoption System",
     category: "Web Development",
-    subtitle: "A compassionate web platform connecting shelter animals with loving families through seamless database integration.",
-    description: "A web-based pet adoption platform featuring frontend and backend integration, structured SQL database management, and full CRUD operations for pet profiles, shelter inquiries, and adoption applications.",
+    subtitle: "A web-based pet adoption platform with SQL database integration.",
+    description: "Frontend and backend integration, structured SQL database management, and full CRUD operations for pet profiles and adoption requests.",
     fullCaseStudy: {
-      overview: "A database-driven web application enabling local shelters to catalog rescue animals and manage citizen adoption requests efficiently.",
-      challenge: "Local animal shelters lacked digital infrastructure, relying on manual paper forms that delayed urgent adoptions.",
-      solution: "Developed an accessible web interface with categorized pet profiles, health records, vaccination tracking, and an adoption approval pipeline.",
+      overview: "A database-driven web application enabling animal shelters to catalog adoptable pets and manage adoption applications.",
+      challenge: "Designing relational database schemas with SQL and connecting frontend interfaces with backend CRUD operations.",
+      solution: "Implemented an accessible web interface with responsive search, pet profile management, and database CRUD integration.",
       features: [
-        "Interactive pet catalog with breed, age, and temperament filters",
-        "Shelter administrative dashboard with SQL CRUD operations",
-        "Adoption application submission with status tracking",
-        "Responsive design optimized for mobile and desktop users"
+        "Pet catalog with search and category filters",
+        "SQL database integration",
+        "Full CRUD operations for pet listings",
+        "Adoption inquiry form"
       ],
-      results: "Successfully connected relational MySQL database with a clean responsive web frontend.",
-      learnings: "Deepened practical understanding of relational database normalization and user-friendly form validation."
+      results: "Functional web development project connecting frontend and relational SQL database.",
+      learnings: "Hands-on mastery of SQL queries, data validation, and CRUD integration."
     },
     coverImage: "/images/project-pet-adoption.jpg",
     images: ["/images/project-pet-adoption.jpg"],
@@ -135,24 +130,24 @@ export const initialProjects: Project[] = [
     slug: "gourmetgo",
     title: "GourmetGo",
     category: "UI/UX / Design Project",
-    subtitle: "A delightful culinary delivery app designed around visual appetite appeal and effortless cart customization.",
-    description: "A modern food-related UI/UX design project exploring micro-interactions, high-contrast meal photography, dynamic menu exploration, and rapid delivery tracking.",
+    subtitle: "A food-related design project exploring restaurant menu layouts and ordering flows.",
+    description: "Food ordering interface design focusing on visual layouts, appetizing presentation, and mobile user experience. Detailed screenshots and case study will be added by designer.",
     fullCaseStudy: {
-      overview: "GourmetGo re-imagines food ordering by emphasizing visual dish presentation, dietary ingredient badges, and live kitchen preparation updates.",
-      challenge: "Most food apps cram excessive text and advertisements, distracting hungry users from finding what they crave.",
-      solution: "Employed bold typography, vibrant photography, card-based category browsing, and an interactive dish modifier bottom-sheet in Figma.",
+      overview: "A culinary interface concept exploring clean food menus, dish presentation, and streamlined order flows in Figma.",
+      challenge: "Creating intuitive item customization and uncluttered mobile shopping cart interactions.",
+      solution: "Designed high-fidelity mobile prototype with clear typography and appetite appeal in Figma.",
       features: [
-        "Visual-first dish cards with dietary labels (Vegan, Gluten-Free, Keto)",
-        "Interactive meal customization sheet with live pricing recalculation",
-        "Animated checkout progress and real-time courier radar tracking",
-        "Dark-mode friendly interface with warm appetizing color accents"
+        "Food menu categorization",
+        "Dish detail screens",
+        "Cart customization interface",
+        "Interactive Figma prototype"
       ],
-      results: "Created a 30-screen interactive Figma prototype with animated components and micro-interactions.",
-      learnings: "Mastered Figma auto-layout, nested component variants, and interactive prototype states."
+      results: "Interactive mobile design project.",
+      learnings: "Advanced Figma auto-layout and component design."
     },
     coverImage: "/images/project-gourmetgo.jpg",
     images: ["/images/project-gourmetgo.jpg"],
-    tags: ["UI/UX", "Mobile App", "Figma", "Food Delivery"],
+    tags: ["UI/UX", "Mobile App", "Figma", "Food Design"],
     accentColor: "#F97316",
     year: "2025",
     figmaUrl: "https://figma.com",
@@ -165,20 +160,20 @@ export const initialProjects: Project[] = [
     slug: "soundix",
     title: "Soundix",
     category: "UI/UX / Design Project",
-    subtitle: "An immersive music streaming application with dynamic ambient player visuals and spatial audio customization.",
-    description: "An audio and music-related design project focusing on dark-mode aesthetic immersion, audio waveform visualizations, dynamic playlist curation, and fluid gesture navigation.",
+    subtitle: "An audio and music-related design project.",
+    description: "Music player and audio interface design focusing on dark mode aesthetic, playlists, and playback controls. Detailed screenshots and case study will be added by designer.",
     fullCaseStudy: {
-      overview: "Soundix was crafted for audiophiles and music lovers seeking a minimalist, distraction-free player with ambient background colors matching album cover art.",
-      challenge: "Balancing high information density (lyrics, queuing, audio quality toggles) with an uncluttered visual aesthetic.",
-      solution: "Designed a gesture-first player interface where the background subtly adapts to album colors with blur mesh shaders and smooth GSAP-inspired transitions.",
+      overview: "A music interface concept designed for audio streaming and playlist navigation.",
+      challenge: "Designing playback controls, album artwork presentation, and audio queues in an elegant dark interface.",
+      solution: "Created dark-mode mobile screens in Figma with high-contrast playback controls and subtle neon accents.",
       features: [
-        "Ambient blurred artwork backdrop dynamically responding to music tracks",
-        "Interactive scrubbing waveform with timestamp previews",
-        "Time-synced floating lyrics viewer",
-        "Curated mood discovery stations and collaborative session queueing"
+        "Audio player interface",
+        "Playlist curation screens",
+        "Album artwork view",
+        "Interactive prototype"
       ],
-      results: "High-fidelity Figma UI design praised for its typography hierarchy and slick dark glassmorphism.",
-      learnings: "Learned advanced color theory and designing high-contrast interfaces for low-light environments."
+      results: "UI/UX audio concept project in Figma.",
+      learnings: "Refined dark mode contrast, typography hierarchy, and playback UI patterns."
     },
     coverImage: "/images/project-soundix.jpg",
     images: ["/images/project-soundix.jpg"],
@@ -195,20 +190,20 @@ export const initialProjects: Project[] = [
     slug: "nike-air",
     title: "Nike Air Concept",
     category: "UI/UX / Design Project",
-    subtitle: "A high-energy sneaker e-commerce concept with 3D product inspection and editorial streetwear aesthetics.",
-    description: "A sneaker-related design project combining bold brutalist typography, dynamic product angles, interactive colorway selector, and high-impact micro-animations.",
+    subtitle: "A sneaker-related design project exploring bold e-commerce layouts.",
+    description: "Footwear showcase exploring editorial typography, high-impact product presentation, and product selection. Detailed screenshots will be added by designer.",
     fullCaseStudy: {
-      overview: "An experimental concept exploring how high-fashion sneaker drops can feel like an interactive digital exhibition rather than a standard online shop.",
-      challenge: "Creating excitement for limited product releases while maintaining intuitive cart and sizing usability.",
-      solution: "Integrated oversized display lettering, interactive 360-degree rotation placeholders, and bold sticky purchase bar.",
+      overview: "An experimental e-commerce concept exploring editorial product presentation for modern streetwear sneakers.",
+      challenge: "Balancing strong visual brand aesthetics with clear sizing and purchasing interactions.",
+      solution: "Designed editorial desktop and mobile screens highlighting product angles and colorway selections.",
       features: [
-        "Immersive hero section with diagonal grid cuts and dynamic typography",
-        "Interactive colorway and size selector with real-time stock indicators",
-        "Storytelling section detailing materials and design inspiration",
-        "Instant one-click checkout with animated confirmation"
+        "Hero sneaker showcase",
+        "Interactive colorway picker",
+        "Size selection flow",
+        "Editorial typography layout"
       ],
-      results: "Editorial concept showcasing strong visual design and typography mastery.",
-      learnings: "Practiced asymmetric layout compositions and modern luxury streetwear web aesthetics."
+      results: "Visual design and UI/UX concept project.",
+      learnings: "Practiced bold display typography and modern asymmetric layouts."
     },
     coverImage: "/images/project-nike-air.jpg",
     images: ["/images/project-nike-air.jpg"],
@@ -225,20 +220,20 @@ export const initialProjects: Project[] = [
     slug: "brew-haven",
     title: "Brew Haven",
     category: "UI/UX / Branding Project",
-    subtitle: "An artisanal coffee brand experience celebrating craft roasting and mindful cafe ordering.",
-    description: "A specialty coffee brand and design project encompassing logo design, packaging identity, coffee bean roast selector, and interactive cafe ordering interface.",
+    subtitle: "A coffee brand and design project.",
+    description: "Coffee branding and ordering concept covering visual identity, roast presentation, and cafe mobile interface. Detailed screenshots will be added by designer.",
     fullCaseStudy: {
-      overview: "Brew Haven brings the warmth and aroma of artisanal coffee culture to a tactile, beautifully designed digital ordering experience.",
-      challenge: "Communicating subtle flavor profiles (notes of citrus, dark chocolate, hazelnut) through visual digital cues.",
-      solution: "Used warm earthy color palettes, custom iconography for brewing methods (Pour Over, French Press, Espresso), and a taste profile radar chart.",
+      overview: "A specialty coffee brand concept exploring coffee bean selection and mobile cafe ordering.",
+      challenge: "Communicating coffee roast notes and brewing options in an approachable digital layout.",
+      solution: "Designed warm branding assets, packaging concept, and a mobile ordering flow in Figma.",
       features: [
-        "Artisanal bean subscription configurator with custom grind choices",
-        "Roast profile visualization with acidity and body gauges",
-        "Pick-up time scheduler for local cafe branches",
-        "Cohesive visual branding across cups, packaging, and digital app"
+        "Brand identity & logo concept",
+        "Coffee roast selector",
+        "Mobile cafe order UI",
+        "Packaging presentation"
       ],
-      results: "Complete branding kit and high-fidelity prototype in Figma.",
-      learnings: "Refined visual storytelling and emotional design principles."
+      results: "Branding and UI design project in Figma.",
+      learnings: "Explored sensory visual storytelling and cohesive brand touchpoints."
     },
     coverImage: "/images/project-brew-haven.jpg",
     images: ["/images/project-brew-haven.jpg"],
@@ -259,12 +254,12 @@ export const initialExperiences: Experience[] = [
     position: "UI/UX Design Intern",
     period: "May – June 2026",
     duration: "4 weeks",
-    description: "Worked on comprehensive UI design assignments, practicing visual layouts, interface design, user personas, and interactive prototyping in Figma.",
+    description: "Worked on UI design assignments, practicing visual layouts, interface design, and prototyping in Figma.",
     tasks: [
-      "Designed a full restaurant menu mobile application in Figma with category filters and dish customizers.",
-      "Designed a modern e-commerce website interface in Figma following contemporary grid and typography standards.",
-      "Practiced wireframing, component-based design systems, and responsive layout adaptations.",
-      "Conducted usability reviews and iterated based on mentor feedback."
+      "Designed a restaurant menu mobile application in Figma.",
+      "Designed a modern e-commerce website interface in Figma.",
+      "Worked on UI design assignments.",
+      "Practised visual layouts, interface design and prototyping."
     ],
     order: 1
   },
@@ -274,11 +269,10 @@ export const initialExperiences: Experience[] = [
     position: "AI Intern – GTU Phase 2",
     period: "July – August 2023",
     duration: "2 months",
-    description: "Participated in the GTU Phase 2 AI internship program, exploring machine learning algorithms, dataset preprocessing, and intelligent application flows.",
+    description: "Participated in the GTU Phase 2 AI internship program. Project description and responsibilities to be added by designer.",
     tasks: [
-      "Studied core artificial intelligence and machine learning pipelines.",
-      "Gained exposure to computer vision and natural language processing concepts.",
-      "Collaborated on practical academic assignments under technical mentorship."
+      "GTU Phase 2 Programme participant.",
+      "Explored artificial intelligence and machine learning fundamentals."
     ],
     order: 2
   },
@@ -288,11 +282,10 @@ export const initialExperiences: Experience[] = [
     position: "Web Development Intern",
     period: "September 2022",
     duration: "1 month",
-    description: "Assisted with frontend and backend web development tasks, HTML/CSS structuring, and basic web application development.",
+    description: "Web development internship. Tasks and responsibilities to be added by designer.",
     tasks: [
-      "Developed responsive webpage templates using HTML5 and CSS3.",
-      "Learned server-side integration and database connectivity fundamentals.",
-      "Gained hands-on experience in version control workflows with Git."
+      "Worked on frontend and web development basics.",
+      "Practiced HTML, CSS and web structuring."
     ],
     order: 3
   }
@@ -303,8 +296,8 @@ export const initialEducations: Education[] = [
     id: "edu-1",
     degree: "B.Tech in Computer Science & Design",
     institution: "G H Patel College of Engineering & Technology (GCET), CVM University",
-    period: "Expected 2027",
-    score: "CGPA: 8.25",
+    period: "Expected graduation: 2027",
+    score: "Currently Pursuing",
     order: 1
   },
   {
@@ -318,7 +311,7 @@ export const initialEducations: Education[] = [
   {
     id: "edu-3",
     degree: "Secondary School Certificate (SSC)",
-    institution: "Gujarat Secondary and Higher Secondary Education Board",
+    institution: "Gujarat Board",
     period: "Completed",
     score: "75.66%",
     order: 3
@@ -346,9 +339,9 @@ export const initialCertificates: Certificate[] = [
   },
   {
     id: "cert-3",
-    title: "Python Programming (Python for Everybody)",
+    title: "Python Programming",
     issuer: "Coursera – University of Michigan",
-    grade: "Verified Specialization",
+    grade: "Course Certificate",
     imageUrl: "/images/cert-coursera-python.jpg",
     credentialUrl: "https://coursera.org",
     order: 3
@@ -356,33 +349,34 @@ export const initialCertificates: Certificate[] = [
 ];
 
 export const initialSkills: Skill[] = [
-  // Design Skills (Prominent!)
+  // Design Skills (Prominent & Strongest)
   { id: "sk-1", name: "Figma", category: "design", icon: "Figma", level: "Primary Tool", featured: true },
   { id: "sk-2", name: "UI/UX Design", category: "design", icon: "Layout", level: "Core Strength", featured: true },
-  { id: "sk-3", name: "Wireframing", category: "design", icon: "Grid", level: "Core Strength", featured: true },
-  { id: "sk-4", name: "Prototyping", category: "design", icon: "Layers", level: "Interactive", featured: true },
-  { id: "sk-5", name: "Design Systems", category: "design", icon: "Component", level: "Atomic Design", featured: true },
-  { id: "sk-6", name: "Visual Design", category: "design", icon: "Palette", level: "Aesthetics & Hierarchy", featured: true },
-  { id: "sk-7", name: "User Research", category: "design", icon: "Users", level: "Fundamentals", featured: true },
-  { id: "sk-8", name: "UX Principles", category: "design", icon: "Sparkles", level: "Usability & Heuristics", featured: true },
+  { id: "sk-3", name: "User Interface Design", category: "design", icon: "Layout", level: "Core Strength", featured: true },
+  { id: "sk-4", name: "Wireframing", category: "design", icon: "Grid", level: "Core Strength", featured: true },
+  { id: "sk-5", name: "Prototyping", category: "design", icon: "Layers", level: "Core Strength", featured: true },
+  { id: "sk-6", name: "Design Systems", category: "design", icon: "Component", level: "Components & Tokens", featured: true },
+  { id: "sk-7", name: "Visual Design", category: "design", icon: "Palette", level: "Layout & Typography", featured: true },
+  { id: "sk-8", name: "UX Principles", category: "design", icon: "Sparkles", level: "User-Centered Design", featured: true },
+  { id: "sk-9", name: "User Research", category: "design", icon: "Users", level: "Fundamentals", featured: true },
 
-  // Technical Skills
-  { id: "sk-9", name: "HTML5 / CSS3", category: "technical", icon: "Code", level: "Frontend Foundation", featured: true },
-  { id: "sk-10", name: "SQL & CRUD", category: "technical", icon: "Database", level: "Data Architecture", featured: true },
-  { id: "sk-11", name: "React.js", category: "technical", icon: "Atom", level: "Project Exposure", featured: true },
-  { id: "sk-12", name: "Node.js & Express", category: "technical", icon: "Server", level: "Project Exposure", featured: true },
-  { id: "sk-13", name: "MongoDB", category: "technical", icon: "HardDrive", level: "Project Exposure", featured: true },
-  { id: "sk-14", name: "Python", category: "technical", icon: "Terminal", level: "Basic Programming", featured: true },
+  // Technical Skills (Secondary Advantage)
+  { id: "sk-10", name: "HTML5 / CSS3", category: "technical", icon: "Code", level: "Web Foundation", featured: true },
+  { id: "sk-11", name: "SQL & CRUD", category: "technical", icon: "Database", level: "Database Operations", featured: true },
+  { id: "sk-12", name: "Basic Python", category: "technical", icon: "Terminal", level: "Programming", featured: true },
+  { id: "sk-13", name: "React.js", category: "technical", icon: "Atom", level: "Project Exposure", featured: true },
+  { id: "sk-14", name: "Node.js & Express", category: "technical", icon: "Server", level: "Project Exposure", featured: true },
+  { id: "sk-15", name: "MongoDB", category: "technical", icon: "HardDrive", level: "Project Exposure", featured: true },
 
   // Tools
-  { id: "sk-15", name: "GitHub", category: "tool", icon: "GitBranch", level: "Version Control", featured: true },
-  { id: "sk-16", name: "Google Drive", category: "tool", icon: "Cloud", level: "Collaboration", featured: false },
-  { id: "sk-17", name: "WPS Office", category: "tool", icon: "FileText", level: "Documentation", featured: false }
+  { id: "sk-16", name: "GitHub", category: "tool", icon: "GitBranch", level: "Version Control", featured: true },
+  { id: "sk-17", name: "Google Drive", category: "tool", icon: "Cloud", level: "Collaboration", featured: false },
+  { id: "sk-18", name: "WPS Office", category: "tool", icon: "FileText", level: "Documentation", featured: false }
 ];
 
 export const initialSiteSettings: SiteSettings = {
   heroIntro: "Designing Digital Experiences That Matter.",
   availability: "Available for UI/UX Design Internships & Junior Roles",
   footerText: "© 2026 Krish Patel. Designed with passion for digital craft.",
-  showAdminLink: true
+  showAdminLink: false
 };

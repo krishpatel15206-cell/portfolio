@@ -10,7 +10,9 @@ import {
   Layers, 
   Calendar, 
   Tag, 
-  Sparkles 
+  Sparkles,
+  FileText,
+  Download
 } from 'lucide-react';
 import { getProjects } from '@/lib/storage';
 import Navbar from '@/components/public/Navbar';
@@ -75,9 +77,6 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           </span>
           <span className="text-[#3f3f46]">•</span>
           <span className="text-xs text-[#a1a1aa] font-mono">{project.year}</span>
-          <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-[#1e2025] border border-[#2d3039] text-[#a1a1aa]">
-            Concept Case Study
-          </span>
         </div>
 
         {/* Project Title */}
@@ -89,14 +88,52 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
           {project.subtitle}
         </p>
 
-        {/* Metadata Grid (Role, Client, Timeline, Tools) */}
+        {/* Action Buttons: Figma, PDF Case Study, Behance */}
+        <div className="mt-8 flex flex-wrap items-center gap-4">
+          {project.figmaUrl && (
+            <a
+              href={project.figmaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#ccff00]/20"
+            >
+              <span>Open in Figma</span>
+              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+            </a>
+          )}
+
+          {project.caseStudyPdfUrl && (
+            <a
+              href={project.caseStudyPdfUrl}
+              download={`${project.slug}-case-study.pdf`}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#18191e] hover:bg-[#222329] border border-[#27272a] text-[#ccff00] font-semibold text-xs transition-all"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Download Detailed Case Study (PDF)</span>
+            </a>
+          )}
+
+          {project.caseStudyExternalUrl && (
+            <a
+              href={project.caseStudyExternalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#18191e] hover:bg-[#222329] border border-[#27272a] text-white font-semibold text-xs transition-all"
+            >
+              <span>View In-Depth Presentation</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+        </div>
+
+        {/* Metadata Grid (Role, Timeline, Category, Links) */}
         <div className="mt-12 pt-8 border-t border-[#222329] grid grid-cols-2 sm:grid-cols-4 gap-6">
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-wider text-[#71717a] block">
               Role
             </span>
             <span className="text-sm font-bold text-white mt-1 block">
-              UI/UX & Concept
+              UI/UX &amp; Design
             </span>
           </div>
 
@@ -120,21 +157,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
           <div>
             <span className="text-[11px] font-semibold uppercase tracking-wider text-[#71717a] block">
-              Links
+              Repositories / Live
             </span>
             <div className="flex items-center gap-3 mt-1">
-              {project.figmaUrl && (
-                <a
-                  href={project.figmaUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs font-semibold text-[#ccff00] hover:underline flex items-center gap-1"
-                >
-                  <span>Figma</span>
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              )}
-              {project.githubUrl && (
+              {project.githubUrl ? (
                 <a
                   href={project.githubUrl}
                   target="_blank"
@@ -146,6 +172,8 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                     <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                   </svg>
                 </a>
+              ) : (
+                <span className="text-xs text-[#71717a]">Design Project</span>
               )}
             </div>
           </div>
@@ -153,12 +181,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
         {/* Cover Image */}
         <div className="relative mt-12 w-full h-[360px] sm:h-[480px] md:h-[560px] rounded-3xl overflow-hidden border border-[#222329] bg-[#121316] shadow-2xl">
-          <Image
+          <img
             src={project.coverImage}
             alt={project.title}
-            fill
-            priority
-            className="object-cover"
+            className="w-full h-full object-cover"
           />
         </div>
       </section>
@@ -168,88 +194,64 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         {project.fullCaseStudy && (
           <>
             {/* Overview */}
-            <div className="space-y-4">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white uppercase flex items-center gap-2">
-                <span className="w-2 h-6 bg-[#ccff00] rounded-full inline-block" />
-                <span>Project Overview</span>
-              </h2>
-              <p className="text-base sm:text-lg text-[#d4d4d8] leading-relaxed">
-                {project.fullCaseStudy.overview}
-              </p>
-            </div>
-
-            {/* The Challenge */}
-            <div className="p-8 rounded-3xl bg-[#121316] border border-[#222329] space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#ccff00]">
-                The Problem
-              </span>
-              <h3 className="font-['Space_Grotesk'] text-xl sm:text-2xl font-bold text-white">
-                The Core Challenge
-              </h3>
-              <p className="text-sm sm:text-base text-[#a1a1aa] leading-relaxed">
-                {project.fullCaseStudy.challenge}
-              </p>
-            </div>
-
-            {/* User Research & Personas */}
-            {project.fullCaseStudy.research && (
+            {project.fullCaseStudy.overview && (
               <div className="space-y-4">
                 <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white uppercase flex items-center gap-2">
                   <span className="w-2 h-6 bg-[#ccff00] rounded-full inline-block" />
-                  <span>Research & Insights</span>
+                  <span>Project Overview</span>
                 </h2>
-                <p className="text-sm sm:text-base text-[#d4d4d8] leading-relaxed">
-                  {project.fullCaseStudy.research}
+                <p className="text-base sm:text-lg text-[#d4d4d8] leading-relaxed">
+                  {project.fullCaseStudy.overview}
                 </p>
               </div>
             )}
 
-            {/* Solution & Features */}
-            <div className="space-y-6">
-              <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white uppercase flex items-center gap-2">
-                <span className="w-2 h-6 bg-[#ccff00] rounded-full inline-block" />
-                <span>The Solution & Key Features</span>
-              </h2>
-              <p className="text-base text-[#d4d4d8] leading-relaxed">
-                {project.fullCaseStudy.solution}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                {project.fullCaseStudy.features.map((feat, idx) => (
-                  <div
-                    key={idx}
-                    className="p-5 rounded-2xl bg-[#14151a] border border-[#222329] flex items-start gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-[#ccff00] shrink-0 mt-0.5" />
-                    <span className="text-sm text-[#d4d4d8] font-medium leading-snug">
-                      {feat}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Results & Key Learnings */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
-              <div className="p-6 rounded-3xl bg-[#121316] border border-[#222329] space-y-2">
-                <h4 className="font-['Space_Grotesk'] text-base font-bold text-white uppercase">
-                  Impact & Outcomes
-                </h4>
-                <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">
-                  {project.fullCaseStudy.results}
+            {/* The Challenge / Problem */}
+            {project.fullCaseStudy.challenge && (
+              <div className="p-8 rounded-3xl bg-[#121316] border border-[#222329] space-y-3">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#ccff00]">
+                  Problem &amp; Context
+                </span>
+                <h3 className="font-['Space_Grotesk'] text-xl sm:text-2xl font-bold text-white">
+                  Design Challenge &amp; Research
+                </h3>
+                <p className="text-sm sm:text-base text-[#a1a1aa] leading-relaxed">
+                  {project.fullCaseStudy.challenge}
                 </p>
               </div>
+            )}
 
-              <div className="p-6 rounded-3xl bg-[#121316] border border-[#222329] space-y-2">
-                <h4 className="font-['Space_Grotesk'] text-base font-bold text-white uppercase">
-                  Design Takeaways
-                </h4>
-                <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">
-                  {project.fullCaseStudy.learnings}
+            {/* Solution & Process */}
+            {project.fullCaseStudy.solution && (
+              <div className="space-y-6">
+                <h2 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white uppercase flex items-center gap-2">
+                  <span className="w-2 h-6 bg-[#ccff00] rounded-full inline-block" />
+                  <span>The Design Solution &amp; Wireframing</span>
+                </h2>
+                <p className="text-base text-[#d4d4d8] leading-relaxed">
+                  {project.fullCaseStudy.solution}
                 </p>
               </div>
-            </div>
+            )}
           </>
+        )}
+
+        {/* Gallery Screenshots (if user uploaded multiple mockups) */}
+        {project.images && project.images.length > 0 && (
+          <div className="space-y-6 pt-6 border-t border-[#222329]">
+            <h2 className="font-['Space_Grotesk'] text-2xl font-bold text-white uppercase flex items-center gap-2">
+              <span className="w-2 h-6 bg-[#ccff00] rounded-full inline-block" />
+              <span>Project Visuals &amp; Screens</span>
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {project.images.map((img, idx) => (
+                <div key={idx} className="relative rounded-2xl overflow-hidden border border-[#27272a] bg-[#121316] shadow-xl">
+                  <img src={img} alt={`${project.title} Screen ${idx + 1}`} className="w-full h-auto object-cover" />
+                </div>
+              ))}
+            </div>
+          </div>
         )}
 
         {/* Tags */}
@@ -270,7 +272,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <span className="text-xs uppercase font-bold tracking-widest text-[#71717a]">
-              Next Case Study
+              Next Project
             </span>
             <h3 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white mt-1">
               {nextProject.title}
