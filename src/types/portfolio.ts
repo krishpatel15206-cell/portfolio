@@ -26,6 +26,7 @@ export interface Project {
   behanceUrl?: string;
   caseStudyPdfUrl?: string;
   caseStudyExternalUrl?: string;
+  hasCaseStudy: boolean;
   featured: boolean;
   published: boolean;
   order: number;

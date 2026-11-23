@@ -154,6 +154,7 @@ export default function AdminProjectsPage() {
       tags: ['UI/UX', 'Figma'],
       accentColor: '#CCFF00',
       year: '2026',
+      hasCaseStudy: false,
       featured: false,
       published: true,
       order: projects.length + 1,
@@ -205,6 +206,22 @@ export default function AdminProjectsPage() {
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs font-mono text-[#71717a]">{project.year}</span>
                 <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      const updated = projects.map(p => p.id === project.id ? { ...p, hasCaseStudy: !p.hasCaseStudy } : p);
+                      setProjects(updated);
+                      saveProjects(updated);
+                    }}
+                    className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded transition-colors ${
+                      project.hasCaseStudy
+                        ? 'bg-[#ccff00]/15 border border-[#ccff00]/40 text-[#ccff00]'
+                        : 'bg-[#27272a] text-[#71717a]'
+                    }`}
+                    title="Click to toggle Case Study page on/off"
+                  >
+                    {project.hasCaseStudy ? 'Case Study ON' : 'Showcase Only'}
+                  </button>
+
                   <button
                     onClick={() => handleToggleFeatured(project.id)}
                     className={`p-1.5 rounded-lg border transition-colors ${
@@ -500,6 +517,27 @@ export default function AdminProjectsPage() {
                     className="w-full px-4 py-2.5 rounded-xl bg-[#18191e] border border-[#27272a] text-white text-sm focus:border-[#ccff00] focus:outline-none font-mono"
                   />
                 </div>
+              </div>
+
+              {/* Has Case Study Toggle */}
+              <div className="p-4 rounded-xl bg-[#18191e] border border-[#27272a] flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold text-white uppercase block">Enable Dedicated Case Study Page</span>
+                  <span className="text-[11px] text-[#71717a]">
+                    Turn ON if you have uploaded a case study story/PDF. Turn OFF to make it a showcase card only.
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setEditingProject({ ...editingProject, hasCaseStudy: !editingProject.hasCaseStudy })}
+                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                    editingProject.hasCaseStudy
+                      ? 'bg-[#ccff00] text-black shadow-md shadow-[#ccff00]/20'
+                      : 'bg-[#27272a] text-[#a1a1aa]'
+                  }`}
+                >
+                  {editingProject.hasCaseStudy ? 'Case Study: ACTIVE' : 'Case Study: DISABLED'}
+                </button>
               </div>
 
               {/* Category & Year */}

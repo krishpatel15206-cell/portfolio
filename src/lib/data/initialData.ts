@@ -55,6 +55,7 @@ export const initialProjects: Project[] = [
     accentColor: "#CCFF00",
     year: "2026",
     figmaUrl: "https://figma.com",
+    hasCaseStudy: true,
     featured: true,
     published: true,
     order: 1
@@ -91,6 +92,7 @@ export const initialProjects: Project[] = [
     year: "2025",
     figmaUrl: "https://figma.com",
     githubUrl: "https://github.com",
+    hasCaseStudy: true,
     featured: true,
     published: true,
     order: 2
@@ -121,6 +123,7 @@ export const initialProjects: Project[] = [
     accentColor: "#38BDF8",
     year: "2024",
     githubUrl: "https://github.com",
+    hasCaseStudy: false,
     featured: false,
     published: true,
     order: 3
@@ -151,6 +154,7 @@ export const initialProjects: Project[] = [
     accentColor: "#F97316",
     year: "2025",
     figmaUrl: "https://figma.com",
+    hasCaseStudy: false,
     featured: false,
     published: true,
     order: 4
@@ -181,6 +185,7 @@ export const initialProjects: Project[] = [
     accentColor: "#8B5CF6",
     year: "2025",
     figmaUrl: "https://figma.com",
+    hasCaseStudy: false,
     featured: false,
     published: true,
     order: 5
@@ -211,6 +216,7 @@ export const initialProjects: Project[] = [
     accentColor: "#CCFF00",
     year: "2025",
     figmaUrl: "https://figma.com",
+    hasCaseStudy: false,
     featured: false,
     published: true,
     order: 6
@@ -241,6 +247,7 @@ export const initialProjects: Project[] = [
     accentColor: "#D97706",
     year: "2024",
     figmaUrl: "https://figma.com",
+    hasCaseStudy: false,
     featured: false,
     published: true,
     order: 7

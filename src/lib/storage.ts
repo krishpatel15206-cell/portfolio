@@ -144,6 +144,7 @@ export async function getProjects(): Promise<Project[]> {
           behanceUrl: item.behance_url,
           caseStudyPdfUrl: item.case_study_pdf_url,
           caseStudyExternalUrl: item.case_study_external_url,
+          hasCaseStudy: item.has_case_study ?? (item.slug === 'thrift-avenue' || item.slug === 'smart-hire'),
           featured: item.featured ?? false,
           published: item.published ?? true,
           order: item.order || 0
@@ -181,6 +182,7 @@ export async function saveProjects(projects: Project[]): Promise<boolean> {
           behance_url: p.behanceUrl,
           case_study_pdf_url: p.caseStudyPdfUrl,
           case_study_external_url: p.caseStudyExternalUrl,
+          has_case_study: p.hasCaseStudy,
           featured: p.featured,
           published: p.published,
           order: p.order,

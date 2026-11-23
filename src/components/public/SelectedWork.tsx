@@ -146,13 +146,36 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                     </a>
                   )}
 
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-black group-hover:bg-[#ccff00] transition-all duration-300 group-hover:scale-110 shadow-lg"
-                    aria-label={`View ${project.title} case study`}
-                  >
-                    <ArrowRight className="w-4 h-4 stroke-[2.5]" />
-                  </Link>
+                  {project.hasCaseStudy ? (
+                    <Link
+                      href={`/projects/${project.slug}`}
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black group-hover:bg-[#ccff00] transition-all duration-300 font-bold text-xs uppercase shadow-lg"
+                      aria-label={`View ${project.title} case study`}
+                    >
+                      <span>Case Study</span>
+                      <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                    </Link>
+                  ) : project.figmaUrl ? (
+                    <a
+                      href={project.figmaUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#ccff00] border border-[#27272a] hover:border-[#ccff00] transition-all text-xs font-semibold uppercase"
+                    >
+                      <span>Figma Preview</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  ) : project.githubUrl ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#38bdf8] border border-[#27272a] hover:border-[#38bdf8] transition-all text-xs font-semibold uppercase"
+                    >
+                      <span>View Code</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  ) : null}
                 </div>
               </div>
             </div>
