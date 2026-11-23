@@ -134,7 +134,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                 </span>
 
                 <div className="flex items-center gap-3">
-                  {project.figmaUrl && (
+                  {project.figmaUrl && project.figmaUrl.trim() !== '' && project.figmaUrl !== 'https://figma.com' && (
                     <a
                       href={project.figmaUrl}
                       target="_blank"
@@ -150,29 +150,29 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                     <Link
                       href={`/projects/${project.slug}`}
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black group-hover:bg-[#ccff00] transition-all duration-300 font-bold text-xs uppercase shadow-lg"
-                      aria-label={`View ${project.title} case study`}
+                      aria-label={`View ${project.title}`}
                     >
-                      <span>Case Study</span>
+                      <span>View Design</span>
                       <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
                     </Link>
-                  ) : project.figmaUrl ? (
+                  ) : project.figmaUrl && project.figmaUrl.trim() !== '' && project.figmaUrl !== 'https://figma.com' ? (
                     <a
                       href={project.figmaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#ccff00] border border-[#27272a] hover:border-[#ccff00] transition-all text-xs font-semibold uppercase"
                     >
-                      <span>Figma Preview</span>
+                      <span>Figma Prototype</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
-                  ) : project.githubUrl ? (
+                  ) : project.githubUrl && project.githubUrl.trim() !== '' && project.githubUrl !== 'https://github.com' ? (
                     <a
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#38bdf8] border border-[#27272a] hover:border-[#38bdf8] transition-all text-xs font-semibold uppercase"
                     >
-                      <span>View Code</span>
+                      <span>GitHub</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
                   ) : null}

@@ -100,7 +100,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
         {/* Action Buttons: Figma, PDF Case Study, Behance */}
         <div className="mt-8 flex flex-wrap items-center gap-4">
-          {project.figmaUrl && (
+          {project.figmaUrl && project.figmaUrl.trim() !== '' && project.figmaUrl !== 'https://figma.com' && (
             <a
               href={project.figmaUrl}
               target="_blank"
@@ -109,6 +109,18 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
             >
               <span>Open in Figma</span>
               <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+            </a>
+          )}
+
+          {project.githubUrl && project.githubUrl.trim() !== '' && project.githubUrl !== 'https://github.com' && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#18191e] hover:bg-[#222329] border border-[#27272a] text-[#38bdf8] font-semibold text-xs transition-all"
+            >
+              <span>GitHub Repository</span>
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
           )}
 
@@ -277,14 +289,14 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      {/* Next Project Footer Bar (Only links to projects with an actual case study) */}
+      {/* Next Project Footer Bar */}
       <section className="py-20 px-6 sm:px-8 border-t border-[#222329] bg-[#0c0d10]">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           {nextCaseStudy ? (
             <>
               <div>
                 <span className="text-xs uppercase font-bold tracking-widest text-[#71717a]">
-                  Next Case Study
+                  Next Project / Design
                 </span>
                 <h3 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white mt-1">
                   {nextCaseStudy.title}
@@ -298,11 +310,35 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
                 href={`/projects/${nextCaseStudy.slug}`}
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-xs uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95"
               >
-                <span>View Next Case Study</span>
+                <span>View Next Design</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </Link>
             </>
           ) : (
+            <>
+              <div>
+                <span className="text-xs uppercase font-bold tracking-widest text-[#71717a]">
+                  Portfolio Works
+                </span>
+                <h3 className="font-['Space_Grotesk'] text-2xl sm:text-3xl font-bold text-white mt-1">
+                  Explore More Projects
+                </h3>
+                <span className="text-xs text-[#ccff00] font-medium">
+                  Selected UI/UX &amp; Engineering Work
+                </span>
+              </div>
+
+              <Link
+                href="/#work"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-xs uppercase tracking-wider transition-all duration-200 hover:scale-105 active:scale-95"
+              >
+                <span>Back to All Projects</span>
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
+              </Link>
+            </>
+          )}
+        </div>
+      </section>
             <>
               <div>
                 <span className="text-xs uppercase font-bold tracking-widest text-[#71717a]">
