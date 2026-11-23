@@ -118,7 +118,7 @@ export default function AboutSection({ profile, skills }: AboutSectionProps) {
               return (
                 <div
                   key={skill.id}
-                  className={`anim-skill-item group relative p-4 rounded-2xl flex flex-col items-center justify-center text-center transition-all duration-300 border will-change-transform ${
+                  className={`anim-skill-item group relative p-4 rounded-2xl flex flex-col items-center justify-center text-center border will-change-transform ${
                     isDesign
                       ? 'bg-[#14151a] border-[#262832] hover:border-[#ccff00]/60 hover:bg-[#181a22]'
                       : 'bg-[#101114] border-[#1d1f26] hover:border-[#38bdf8]/50 hover:bg-[#14151a]'

@@ -82,7 +82,7 @@ export default function ExperienceEducationCerts({
             {educations.map((edu) => (
               <div
                 key={edu.id}
-                className="anim-edu-card group p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#3f3f46] transition-all duration-200 flex items-start gap-4 will-change-transform"
+                className="anim-edu-card group p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#3f3f46] flex items-start gap-4 will-change-transform"
               >
                 {/* Graduation Cap in Lime-tinted circle */}
                 <div className="w-10 h-10 rounded-full bg-[#1c2214] border border-[#ccff00]/30 flex items-center justify-center shrink-0 group-hover:border-[#ccff00] transition-colors">
@@ -128,7 +128,7 @@ export default function ExperienceEducationCerts({
               <div
                 key={cert.id}
                 onClick={() => setSelectedCert(cert)}
-                className="anim-cert-card group relative p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/50 hover:bg-[#16171b] cursor-pointer transition-all duration-300 shadow-lg flex items-center justify-between will-change-transform"
+                className="anim-cert-card group relative p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/50 hover:bg-[#16171b] cursor-pointer shadow-lg flex items-center justify-between will-change-transform"
               >
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-xl bg-[#1a1c14] border border-[#ccff00]/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">

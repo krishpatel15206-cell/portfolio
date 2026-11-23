@@ -2,217 +2,152 @@
 
 import { useEffect } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function ScrollAnimationManager() {
   useEffect(() => {
-    // Check reduced motion preference
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    gsap.registerPlugin(ScrollTrigger);
+    // Use IntersectionObserver with 200px anticipatory buffer
+    // so animations trigger BEFORE the user reaches the section!
+    const observerOptions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: '200px 0px 0px 0px', // Triggers 200px early!
+      threshold: 0.01,
+    };
 
-    const ctx = gsap.context(() => {
-      // 1. POP-UP ANIMATIONS FOR PROJECT CARDS (Trigger earlier & pop fast)
-      const projectCards = document.querySelectorAll('.anim-project-card');
-      projectCards.forEach((card) => {
-        gsap.fromTo(
-          card,
-          {
-            scale: 0.88,
-            y: 40,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            y: 0,
-            opacity: 1,
-            duration: 0.45,
-            ease: 'back.out(1.6)',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 96%', // Triggers instantly when it enters bottom of screen
-              toggleActions: 'play none none none',
-            },
+    const animatedElements = new Set<Element>();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !animatedElements.has(entry.target)) {
+          animatedElements.add(entry.target);
+          const el = entry.target as HTMLElement;
+
+          // 1. PROJECT CARDS POP
+          if (el.classList.contains('anim-project-card')) {
+            gsap.fromTo(
+              el,
+              { scale: 0.85, y: 35, opacity: 0 },
+              {
+                scale: 1,
+                y: 0,
+                opacity: 1,
+                duration: 0.38,
+                ease: 'back.out(1.8)',
+                clearProps: 'transform,opacity',
+              }
+            );
           }
-        );
+
+          // 2. SKILLS SQUIRCLES RAPID POP
+          else if (el.classList.contains('anim-skills-grid')) {
+            const items = el.querySelectorAll('.anim-skill-item');
+            gsap.fromTo(
+              items,
+              { scale: 0.3, opacity: 0 },
+              {
+                scale: 1,
+                opacity: 1,
+                duration: 0.32,
+                stagger: 0.025,
+                ease: 'back.out(2.2)',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 3. SECTION HEADERS
+          else if (el.classList.contains('anim-section-header')) {
+            gsap.fromTo(
+              el,
+              { scale: 0.94, y: 20, opacity: 0 },
+              {
+                scale: 1,
+                y: 0,
+                opacity: 1,
+                duration: 0.35,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 4. TIMELINE ITEMS
+          else if (el.classList.contains('anim-timeline-item')) {
+            gsap.fromTo(
+              el,
+              { x: -25, opacity: 0, scale: 0.92 },
+              {
+                x: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.35,
+                ease: 'back.out(1.6)',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 5. EDUCATION CARDS
+          else if (el.classList.contains('anim-edu-card')) {
+            gsap.fromTo(
+              el,
+              { y: 25, opacity: 0, scale: 0.92 },
+              {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.35,
+                ease: 'back.out(1.5)',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 6. CERTIFICATES
+          else if (el.classList.contains('anim-cert-card')) {
+            gsap.fromTo(
+              el,
+              { y: 25, scale: 0.9, opacity: 0 },
+              {
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 0.35,
+                ease: 'back.out(1.6)',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 7. CONTACT HEADLINE
+          else if (el.classList.contains('anim-contact-headline')) {
+            gsap.fromTo(
+              el,
+              { scale: 0.85, y: 35, opacity: 0 },
+              {
+                scale: 1,
+                y: 0,
+                opacity: 1,
+                duration: 0.45,
+                ease: 'back.out(1.6)',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          observer.unobserve(el);
+        }
       });
+    }, observerOptions);
 
-      // 2. BOUNCY POP-UP CASCADE FOR SKILLS SQUIRCLES (Fast & snappy)
-      const skillsContainer = document.querySelector('.anim-skills-grid');
-      if (skillsContainer) {
-        const skillItems = skillsContainer.querySelectorAll('.anim-skill-item');
-        gsap.fromTo(
-          skillItems,
-          {
-            scale: 0.4,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            opacity: 1,
-            duration: 0.35,
-            stagger: 0.03, // Rapid fire cascade
-            ease: 'back.out(2.2)',
-            scrollTrigger: {
-              trigger: skillsContainer,
-              start: 'top 95%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      }
+    // Observe all targets
+    const targets = document.querySelectorAll(
+      '.anim-project-card, .anim-skills-grid, .anim-section-header, .anim-timeline-item, .anim-edu-card, .anim-cert-card, .anim-contact-headline'
+    );
+    targets.forEach((t) => observer.observe(t));
 
-      // 3. SECTION HEADERS POP-UP (Instant trigger)
-      const sectionHeaders = document.querySelectorAll('.anim-section-header');
-      sectionHeaders.forEach((header) => {
-        gsap.fromTo(
-          header,
-          {
-            scale: 0.94,
-            y: 25,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            y: 0,
-            opacity: 1,
-            duration: 0.4,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: header,
-              start: 'top 96%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-
-      // 4. TIMELINE DRAW & NODES POPPING (Fast trigger)
-      const timelineLine = document.querySelector('.anim-timeline-line');
-      if (timelineLine) {
-        gsap.fromTo(
-          timelineLine,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: timelineLine,
-              start: 'top 95%',
-              end: 'bottom 80%',
-              scrub: 0.3,
-            },
-          }
-        );
-      }
-
-      const timelineItems = document.querySelectorAll('.anim-timeline-item');
-      timelineItems.forEach((item, idx) => {
-        gsap.fromTo(
-          item,
-          {
-            x: -25,
-            opacity: 0,
-            scale: 0.94,
-          },
-          {
-            x: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            delay: idx * 0.05,
-            ease: 'back.out(1.5)',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 96%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-
-      // 5. EDUCATION CARDS POP-UP (Fast trigger)
-      const educationCards = document.querySelectorAll('.anim-edu-card');
-      educationCards.forEach((card, idx) => {
-        gsap.fromTo(
-          card,
-          {
-            y: 30,
-            opacity: 0,
-            scale: 0.94,
-          },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            delay: idx * 0.05,
-            ease: 'back.out(1.5)',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 96%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-
-      // 6. CERTIFICATES STACK POP-UP (Fast trigger)
-      const certCards = document.querySelectorAll('.anim-cert-card');
-      certCards.forEach((card, idx) => {
-        gsap.fromTo(
-          card,
-          {
-            y: 30,
-            scale: 0.9,
-            opacity: 0,
-          },
-          {
-            y: 0,
-            scale: 1,
-            opacity: 1,
-            duration: 0.4,
-            delay: idx * 0.05,
-            ease: 'back.out(1.6)',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 96%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-
-      // 7. CONTACT GIANT HEADLINE POP-UP (Fast trigger)
-      const contactHeadline = document.querySelector('.anim-contact-headline');
-      if (contactHeadline) {
-        gsap.fromTo(
-          contactHeadline,
-          {
-            scale: 0.88,
-            y: 40,
-            opacity: 0,
-          },
-          {
-            scale: 1,
-            y: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: 'back.out(1.4)',
-            scrollTrigger: {
-              trigger: contactHeadline,
-              start: 'top 95%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      }
-
-      // Refresh ScrollTrigger after elements render
-      ScrollTrigger.refresh();
-    });
-
-    return () => ctx.revert();
+    return () => observer.disconnect();
   }, []);
 
   return null;
