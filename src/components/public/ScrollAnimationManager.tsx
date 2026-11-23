@@ -12,69 +12,13 @@ export default function ScrollAnimationManager() {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // 1. POP-UP ANIMATIONS FOR PROJECT CARDS
+      // 1. POP-UP ANIMATIONS FOR PROJECT CARDS (Trigger earlier & pop fast)
       const projectCards = document.querySelectorAll('.anim-project-card');
-      projectCards.forEach((card, index) => {
+      projectCards.forEach((card) => {
         gsap.fromTo(
           card,
           {
-            scale: 0.82,
-            y: 80,
-            opacity: 0,
-            rotateX: 10,
-          },
-          {
-            scale: 1,
-            y: 0,
-            opacity: 1,
-            rotateX: 0,
-            duration: 0.9,
-            ease: 'back.out(1.5)',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 88%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      });
-
-      // 2. BOUNCY POP-UP CASCADE FOR SKILLS SQUIRCLES
-      const skillsContainer = document.querySelector('.anim-skills-grid');
-      if (skillsContainer) {
-        const skillItems = skillsContainer.querySelectorAll('.anim-skill-item');
-        gsap.fromTo(
-          skillItems,
-          {
-            scale: 0,
-            y: 35,
-            opacity: 0,
-            rotate: () => (Math.random() - 0.5) * 15,
-          },
-          {
-            scale: 1,
-            y: 0,
-            opacity: 1,
-            rotate: 0,
-            duration: 0.65,
-            stagger: 0.05,
-            ease: 'back.out(2.2)',
-            scrollTrigger: {
-              trigger: skillsContainer,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            },
-          }
-        );
-      }
-
-      // 3. SECTION HEADERS POP-UP
-      const sectionHeaders = document.querySelectorAll('.anim-section-header');
-      sectionHeaders.forEach((header) => {
-        gsap.fromTo(
-          header,
-          {
-            scale: 0.9,
+            scale: 0.88,
             y: 40,
             opacity: 0,
           },
@@ -82,18 +26,68 @@ export default function ScrollAnimationManager() {
             scale: 1,
             y: 0,
             opacity: 1,
-            duration: 0.8,
-            ease: 'back.out(1.4)',
+            duration: 0.45,
+            ease: 'back.out(1.6)',
             scrollTrigger: {
-              trigger: header,
-              start: 'top 90%',
+              trigger: card,
+              start: 'top 96%', // Triggers instantly when it enters bottom of screen
               toggleActions: 'play none none none',
             },
           }
         );
       });
 
-      // 4. TIMELINE DRAW & NODES POPPING
+      // 2. BOUNCY POP-UP CASCADE FOR SKILLS SQUIRCLES (Fast & snappy)
+      const skillsContainer = document.querySelector('.anim-skills-grid');
+      if (skillsContainer) {
+        const skillItems = skillsContainer.querySelectorAll('.anim-skill-item');
+        gsap.fromTo(
+          skillItems,
+          {
+            scale: 0.4,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            opacity: 1,
+            duration: 0.35,
+            stagger: 0.03, // Rapid fire cascade
+            ease: 'back.out(2.2)',
+            scrollTrigger: {
+              trigger: skillsContainer,
+              start: 'top 95%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+
+      // 3. SECTION HEADERS POP-UP (Instant trigger)
+      const sectionHeaders = document.querySelectorAll('.anim-section-header');
+      sectionHeaders.forEach((header) => {
+        gsap.fromTo(
+          header,
+          {
+            scale: 0.94,
+            y: 25,
+            opacity: 0,
+          },
+          {
+            scale: 1,
+            y: 0,
+            opacity: 1,
+            duration: 0.4,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: header,
+              start: 'top 96%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      });
+
+      // 4. TIMELINE DRAW & NODES POPPING (Fast trigger)
       const timelineLine = document.querySelector('.anim-timeline-line');
       if (timelineLine) {
         gsap.fromTo(
@@ -104,9 +98,9 @@ export default function ScrollAnimationManager() {
             ease: 'none',
             scrollTrigger: {
               trigger: timelineLine,
-              start: 'top 85%',
-              end: 'bottom 70%',
-              scrub: 0.8,
+              start: 'top 95%',
+              end: 'bottom 80%',
+              scrub: 0.3,
             },
           }
         );
@@ -117,99 +111,97 @@ export default function ScrollAnimationManager() {
         gsap.fromTo(
           item,
           {
-            x: -40,
+            x: -25,
             opacity: 0,
-            scale: 0.9,
+            scale: 0.94,
           },
           {
             x: 0,
             opacity: 1,
             scale: 1,
-            duration: 0.7,
-            delay: idx * 0.1,
-            ease: 'back.out(1.6)',
+            duration: 0.4,
+            delay: idx * 0.05,
+            ease: 'back.out(1.5)',
             scrollTrigger: {
               trigger: item,
-              start: 'top 88%',
+              start: 'top 96%',
               toggleActions: 'play none none none',
             },
           }
         );
       });
 
-      // 5. EDUCATION CARDS POP-UP
+      // 5. EDUCATION CARDS POP-UP (Fast trigger)
       const educationCards = document.querySelectorAll('.anim-edu-card');
       educationCards.forEach((card, idx) => {
         gsap.fromTo(
           card,
           {
-            y: 50,
+            y: 30,
             opacity: 0,
-            scale: 0.9,
+            scale: 0.94,
           },
           {
             y: 0,
             opacity: 1,
             scale: 1,
-            duration: 0.75,
-            delay: idx * 0.12,
+            duration: 0.4,
+            delay: idx * 0.05,
             ease: 'back.out(1.5)',
             scrollTrigger: {
               trigger: card,
-              start: 'top 88%',
+              start: 'top 96%',
               toggleActions: 'play none none none',
             },
           }
         );
       });
 
-      // 6. CERTIFICATES STACK POP-UP
+      // 6. CERTIFICATES STACK POP-UP (Fast trigger)
       const certCards = document.querySelectorAll('.anim-cert-card');
       certCards.forEach((card, idx) => {
         gsap.fromTo(
           card,
           {
-            y: 60,
-            scale: 0.85,
+            y: 30,
+            scale: 0.9,
             opacity: 0,
-            rotateZ: (idx - 1) * 3,
           },
           {
             y: 0,
             scale: 1,
             opacity: 1,
-            rotateZ: 0,
-            duration: 0.8,
-            delay: idx * 0.1,
-            ease: 'back.out(1.7)',
+            duration: 0.4,
+            delay: idx * 0.05,
+            ease: 'back.out(1.6)',
             scrollTrigger: {
               trigger: card,
-              start: 'top 90%',
+              start: 'top 96%',
               toggleActions: 'play none none none',
             },
           }
         );
       });
 
-      // 7. CONTACT GIANT HEADLINE POP-UP
+      // 7. CONTACT GIANT HEADLINE POP-UP (Fast trigger)
       const contactHeadline = document.querySelector('.anim-contact-headline');
       if (contactHeadline) {
         gsap.fromTo(
           contactHeadline,
           {
-            scale: 0.8,
-            y: 80,
+            scale: 0.88,
+            y: 40,
             opacity: 0,
           },
           {
             scale: 1,
             y: 0,
             opacity: 1,
-            duration: 1.1,
+            duration: 0.5,
             ease: 'back.out(1.4)',
             scrollTrigger: {
               trigger: contactHeadline,
-              start: 'top 85%',
+              start: 'top 95%',
               toggleActions: 'play none none none',
             },
           }
