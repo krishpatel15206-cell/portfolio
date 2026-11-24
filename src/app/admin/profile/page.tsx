@@ -1,51 +1,21 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { Save, Check, User, MapPin, Mail, Phone, Sparkles, UploadCloud, RefreshCw, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Save, Check, User, MapPin, Mail, Phone, Sparkles } from 'lucide-react';
 import { getProfile, saveProfile } from '@/lib/storage';
 import { Profile } from '@/types/portfolio';
 
 export default function AdminProfilePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
-  const [photoPreview, setPhotoPreview] = useState<string>('');
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     async function load() {
       const p = await getProfile();
       setProfile(p);
-      if (p?.avatarUrl) {
-        setPhotoPreview(p.avatarUrl);
-      }
     }
     load();
   }, []);
-
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setPhotoPreview(base64String);
-        if (profile) {
-          setProfile({ ...profile, avatarUrl: base64String });
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleUseSilhouette = () => {
-    // Clean SVG designer avatar
-    const silhouette = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 450" fill="%230c0d10"><circle cx="200" cy="150" r="90" fill="%231a1b20" stroke="%23ccff00" stroke-width="4"/><path d="M70 420 C70 280 130 250 200 250 C270 250 330 280 330 420 Z" fill="%231a1b20" stroke="%23ccff00" stroke-width="4"/></svg>';
-    setPhotoPreview(silhouette);
-    if (profile) {
-      setProfile({ ...profile, avatarUrl: silhouette });
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,77 +41,30 @@ export default function AdminProfilePage() {
           Profile & Bio Settings
         </h1>
         <p className="text-xs text-[#a1a1aa] mt-1">
-          Upload your real photograph, edit your headline, bio paragraphs, contact channels, and academic CGPA metrics.
+          Edit your headline, bio paragraphs, contact channels, and academic CGPA metrics.
         </p>
       </div>
 
       {savedSuccess && (
         <div className="p-4 rounded-2xl bg-[#22c55e]/15 border border-[#22c55e]/30 flex items-center gap-3 text-sm text-[#22c55e]">
           <Check className="w-5 h-5 shrink-0" />
-          <span>Profile updated successfully! Your new photo and info are immediately live on the website.</span>
+          <span>Profile updated successfully! Your info is immediately live on the website.</span>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
-        {/* PHOTO UPLOADER SECTION */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-[#121316] border border-[#1e2025] space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="font-['Space_Grotesk'] text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <ImageIcon className="w-4 h-4 text-[#ccff00]" />
-              <span>Your Profile Photograph</span>
-            </h2>
-            <span className="text-xs text-[#ccff00] font-semibold">Immediate Live Update</span>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            {/* Live Photo Preview with Lime Aura */}
-            <div className="relative w-36 h-36 rounded-2xl bg-[#18191e] border-2 border-[#ccff00]/60 overflow-hidden flex items-center justify-center shrink-0 shadow-lg shadow-[#ccff00]/10">
-              {photoPreview ? (
-                <img
-                  src={photoPreview}
-                  alt="Krish Patel Avatar"
-                  className="w-full h-full object-cover object-top"
-                />
-              ) : (
-                <User className="w-16 h-16 text-[#71717a]" />
-              )}
-            </div>
-
-            {/* Controls */}
-            <div className="space-y-3 text-center sm:text-left">
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handlePhotoUpload}
-                accept="image/png, image/jpeg, image/webp"
-                className="hidden"
-              />
-
-              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#ccff00]/20"
-                >
-                  <UploadCloud className="w-4 h-4 stroke-[2.5]" />
-                  <span>Upload Your Photo (PNG/JPG)</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={handleUseSilhouette}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#18191e] border border-[#27272a] hover:border-[#ccff00] text-[#f4f4f5] text-xs font-semibold transition-all"
-                >
-                  <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Use Clean Silhouette</span>
-                </button>
-              </div>
-
-              <p className="text-xs text-[#71717a]">
-                Recommended: A cutout or headshot photo with clear background. JPG, PNG or WebP up to 10MB.
-              </p>
+        {/* HERO VISUAL MODE NOTICE */}
+        <div className="p-5 rounded-2xl bg-[#14151a] border border-[#22242e] flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#ccff00] shrink-0" />
+            <div>
+              <span className="text-xs font-bold text-white uppercase block">Hero Visual: Pure UI/UX Designer Canvas</span>
+              <span className="text-[11px] text-[#71717a]">Your homepage displays the interactive Figma vector canvas instead of personal photos for a clean, agency-grade look.</span>
             </div>
           </div>
+          <span className="text-[10px] font-mono uppercase font-bold px-2.5 py-1 rounded-full bg-[#ccff00]/15 text-[#ccff00] border border-[#ccff00]/30 shrink-0">
+            Active
+          </span>
         </div>
 
         {/* Basic Identity */}
