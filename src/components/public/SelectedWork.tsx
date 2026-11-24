@@ -24,7 +24,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
   return (
     <section id="work" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
-      <div className="scroll-driven-header flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-[#222329]/60">
+      <div className="scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-[#222329]/60">
         <div>
           <div className="flex items-center gap-3">
             <h2 className="font-['Space_Grotesk'] text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white uppercase">
@@ -75,7 +75,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                 e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
               }}
-              className="scroll-driven-card group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 transition-all duration-300"
+              className="scroll-reveal group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 transition-all duration-300"
             >
               {/* Dynamic Interactive Cursor Spotlight */}
               <div

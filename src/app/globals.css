@@ -177,83 +177,25 @@ body {
   animation: cursor-patrol 6.5s ease-in-out infinite;
 }
 
-/* Modern CSS Scroll-Driven Animations (120FPS GPU hardware accelerated) */
-@keyframes scroll-reveal-up {
-  0% {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Pop-up on Scroll Reveal System */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(38px) scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-@keyframes scroll-reveal-slide {
-  0% {
-    opacity: 0;
-    transform: translateX(-24px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+.scroll-reveal-slide {
+  opacity: 0;
+  transform: translateX(-34px) scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-@keyframes scroll-reveal-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes scroll-progress-fill {
-  0% {
-    transform: scaleX(0);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-@supports (animation-timeline: view()) {
-  .scroll-driven-card {
-    animation: scroll-reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 28%;
-    will-change: transform, opacity;
-  }
-
-  .scroll-driven-header {
-    animation: scroll-reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 22%;
-    will-change: transform, opacity;
-  }
-
-  .scroll-driven-timeline {
-    animation: scroll-reveal-slide cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 22%;
-    will-change: transform, opacity;
-  }
-
-  .scroll-driven-item {
-    animation: scroll-reveal-up cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-timeline: view();
-    animation-range: entry 5% cover 25%;
-    will-change: transform, opacity;
-  }
-}
-
-@supports (animation-timeline: scroll()) {
-  .scroll-driven-progress {
-    transform-origin: 0% 50%;
-    animation: scroll-progress-fill linear both;
-    animation-timeline: scroll();
-  }
+.scroll-reveal.is-visible,
+.scroll-reveal-slide.is-visible {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
 }
 
 /* Accessibility: Reduced Motion */

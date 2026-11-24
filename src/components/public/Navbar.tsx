@@ -18,7 +18,7 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
       setIsScrolled(window.scrollY > 40);
 
       // Detect active section
-      const sections = ['hero', 'work', 'about', 'experience', 'certificates', 'contact'];
+      const sections = ['hero', 'work', 'about', 'experience', 'contact'];
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
@@ -77,23 +77,26 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className={`transition-colors duration-200 hover:text-[#ccff00] relative py-1 ${
-                  activeSection === link.id
-                    ? 'text-white font-semibold'
-                    : 'text-[#9496a1]'
-                }`}
-              >
-                {link.name}
-                {activeSection === link.id && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ccff00] rounded-full" />
-                )}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id && link.id !== 'certificates';
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className={`transition-colors duration-200 hover:text-[#ccff00] relative py-1 ${
+                    isActive
+                      ? 'text-white font-semibold'
+                      : 'text-[#9496a1]'
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ccff00] rounded-full" />
+                  )}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Action: Resume Button */}
@@ -124,19 +127,22 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-30 bg-[#08080a]/98 backdrop-blur-xl md:hidden flex flex-col justify-center px-8 py-20 transition-all duration-300">
           <div className="space-y-6 text-center">
-            {navLinks.map((link) => (
-              <div key={link.name}>
-                <a
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className={`text-2xl font-bold tracking-tight block py-2 ${
-                    activeSection === link.id ? 'text-[#ccff00]' : 'text-[#d4d4d8]'
-                  }`}
-                >
-                  {link.name}
-                </a>
-              </div>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id && link.id !== 'certificates';
+              return (
+                <div key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className={`text-2xl font-bold tracking-tight block py-2 ${
+                      isActive ? 'text-[#ccff00]' : 'text-[#d4d4d8]'
+                    }`}
+                  >
+                    {link.name}
+                  </a>
+                </div>
+              );
+            })}
             <div className="pt-8">
               <a
                 href={resumeUrl}
