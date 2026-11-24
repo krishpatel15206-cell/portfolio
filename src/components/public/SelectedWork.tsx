@@ -86,7 +86,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                   </span>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-1 rounded-full bg-[#1e2025] border border-[#2d3039] text-[#a1a1aa]">
-                      Concept Placeholder
+                      {project.hasCaseStudy ? 'Case Study' : 'Design Showcase'}
                     </span>
                   </div>
                 </div>
@@ -175,7 +175,11 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                       <span>GitHub</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
-                  ) : null}
+                  ) : (
+                    <span className="px-3 py-1.5 rounded-full bg-[#16171a] border border-[#27272a] text-[#71717a] text-[11px] font-medium uppercase tracking-wider">
+                      Showcase
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
