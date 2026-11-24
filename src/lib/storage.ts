@@ -28,6 +28,39 @@ const STORAGE_KEYS = {
   SETTINGS: 'kp_portfolio_settings'
 };
 
+// Read persisted server data from disk when running on Node.js server
+async function getServerPersistentData(): Promise<any> {
+  if (typeof window === 'undefined') {
+    try {
+      const fs = await import('fs');
+      const path = await import('path');
+      const dataFile = path.join(process.cwd(), 'src', 'lib', 'data', 'portfolio-data.json');
+      if (fs.existsSync(dataFile)) {
+        const raw = fs.readFileSync(dataFile, 'utf-8');
+        return JSON.parse(raw);
+      }
+    } catch {
+      // ignore
+    }
+  }
+  return null;
+}
+
+// Sync client changes to the server API so server components and all tabs stay updated
+async function syncToServer(type: string, data: any): Promise<void> {
+  if (typeof window !== 'undefined') {
+    try {
+      await fetch('/api/portfolio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, data }),
+      });
+    } catch (e) {
+      console.warn(`Failed to sync ${type} to server:`, e);
+    }
+  }
+}
+
 // Helper for client-side local storage safely
 function getLocalItem<T>(key: string, fallback: T): T {
   if (typeof window === 'undefined') return fallback;
@@ -80,11 +113,19 @@ export async function getProfile(): Promise<Profile> {
       console.warn('Supabase fetch profile failed, using local/default:', err);
     }
   }
+
+  const serverData = await getServerPersistentData();
+  if (serverData?.profile) {
+    return serverData.profile;
+  }
+
   return getLocalItem<Profile>(STORAGE_KEYS.PROFILE, initialProfile);
 }
 
 export async function saveProfile(profile: Profile): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.PROFILE, profile);
+  await syncToServer('profile', profile);
+
   if (isSupabaseConfigured() && supabase) {
     try {
       const { error } = await supabase.from('profiles').upsert({
@@ -154,11 +195,19 @@ export async function getProjects(): Promise<Project[]> {
       console.warn('Supabase fetch projects failed, using local/default:', err);
     }
   }
+
+  const serverData = await getServerPersistentData();
+  if (serverData?.projects && serverData.projects.length > 0) {
+    return serverData.projects;
+  }
+
   return getLocalItem<Project[]>(STORAGE_KEYS.PROJECTS, initialProjects);
 }
 
 export async function saveProjects(projects: Project[]): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.PROJECTS, projects);
+  await syncToServer('projects', projects);
+
   if (isSupabaseConfigured() && supabase) {
     try {
       for (const p of projects) {
@@ -182,7 +231,7 @@ export async function saveProjects(projects: Project[]): Promise<boolean> {
           behance_url: p.behanceUrl,
           case_study_pdf_url: p.caseStudyPdfUrl,
           case_study_external_url: p.caseStudyExternalUrl,
-          has_case_study: p.hasCaseStudy,
+          hasCaseStudy: p.hasCaseStudy,
           featured: p.featured,
           published: p.published,
           order: p.order,
@@ -242,11 +291,18 @@ export async function getExperiences(): Promise<Experience[]> {
       console.warn('Supabase fetch experience failed', e);
     }
   }
+
+  const serverData = await getServerPersistentData();
+  if (serverData?.experiences && serverData.experiences.length > 0) {
+    return serverData.experiences;
+  }
+
   return getLocalItem<Experience[]>(STORAGE_KEYS.EXPERIENCES, initialExperiences);
 }
 
 export async function saveExperiences(experiences: Experience[]): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.EXPERIENCES, experiences);
+  await syncToServer('experiences', experiences);
   return true;
 }
 
@@ -269,11 +325,18 @@ export async function getEducations(): Promise<Education[]> {
       console.warn('Supabase fetch education failed', e);
     }
   }
+
+  const serverData = await getServerPersistentData();
+  if (serverData?.educations && serverData.educations.length > 0) {
+    return serverData.educations;
+  }
+
   return getLocalItem<Education[]>(STORAGE_KEYS.EDUCATIONS, initialEducations);
 }
 
 export async function saveEducations(educations: Education[]): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.EDUCATIONS, educations);
+  await syncToServer('educations', educations);
   return true;
 }
 
@@ -299,30 +362,47 @@ export async function getCertificates(): Promise<Certificate[]> {
       console.warn('Supabase fetch certificates failed', e);
     }
   }
+
+  const serverData = await getServerPersistentData();
+  if (serverData?.certificates && serverData.certificates.length > 0) {
+    return serverData.certificates;
+  }
+
   return getLocalItem<Certificate[]>(STORAGE_KEYS.CERTIFICATES, initialCertificates);
 }
 
 export async function saveCertificates(certificates: Certificate[]): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.CERTIFICATES, certificates);
+  await syncToServer('certificates', certificates);
   return true;
 }
 
 // ---------------- SKILLS ----------------
 export async function getSkills(): Promise<Skill[]> {
+  const serverData = await getServerPersistentData();
+  if (serverData?.skills && serverData.skills.length > 0) {
+    return serverData.skills;
+  }
   return getLocalItem<Skill[]>(STORAGE_KEYS.SKILLS, initialSkills);
 }
 
 export async function saveSkills(skills: Skill[]): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.SKILLS, skills);
+  await syncToServer('skills', skills);
   return true;
 }
 
 // ---------------- SITE SETTINGS ----------------
 export async function getSiteSettings(): Promise<SiteSettings> {
+  const serverData = await getServerPersistentData();
+  if (serverData?.settings) {
+    return serverData.settings;
+  }
   return getLocalItem<SiteSettings>(STORAGE_KEYS.SETTINGS, initialSiteSettings);
 }
 
 export async function saveSiteSettings(settings: SiteSettings): Promise<boolean> {
   setLocalItem(STORAGE_KEYS.SETTINGS, settings);
+  await syncToServer('settings', settings);
   return true;
 }

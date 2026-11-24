@@ -54,46 +54,36 @@ export default function PortfolioClientView({
   const [certificates, setCertificates] = useState<Certificate[]>(initialCertificates);
   const [skills, setSkills] = useState<Skill[]>(initialSkills);
 
-  // Sync client-side localStorage updates (e.g. newly uploaded photo or edited project)
+  // Sync latest updates from storage / server
   useEffect(() => {
-    async function syncFromClient() {
-      // Avoid re-renders on initial mount if no local overrides exist
-      const hasLocalOverrides = 
-        typeof window !== 'undefined' &&
-        (localStorage.getItem('kp_portfolio_profile') ||
-         localStorage.getItem('kp_portfolio_projects') ||
-         localStorage.getItem('kp_portfolio_experiences') ||
-         localStorage.getItem('kp_portfolio_educations') ||
-         localStorage.getItem('kp_portfolio_certificates') ||
-         localStorage.getItem('kp_portfolio_skills'));
-
-      if (!hasLocalOverrides) return;
-
-      const [p, pr, ex, ed, ce, sk] = await Promise.all([
-        getProfile(),
-        getProjects(),
-        getExperiences(),
-        getEducations(),
-        getCertificates(),
-        getSkills(),
-      ]);
-      setProfile(p);
-      setProjects(pr);
-      setExperiences(ex);
-      setEducations(ed);
-      setCertificates(ce);
-      setSkills(sk);
+    async function syncData() {
+      try {
+        const [p, pr, ex, ed, ce, sk] = await Promise.all([
+          getProfile(),
+          getProjects(),
+          getExperiences(),
+          getEducations(),
+          getCertificates(),
+          getSkills(),
+        ]);
+        if (p) setProfile(p);
+        if (pr && pr.length > 0) setProjects(pr);
+        if (ex && ex.length > 0) setExperiences(ex);
+        if (ed && ed.length > 0) setEducations(ed);
+        if (ce && ce.length > 0) setCertificates(ce);
+        if (sk && sk.length > 0) setSkills(sk);
+      } catch (err) {
+        console.warn('Sync failed:', err);
+      }
     }
 
-    const handleUpdate = () => {
-      syncFromClient();
-    };
+    syncData();
 
-    window.addEventListener('kp_portfolio_updated', handleUpdate);
-    window.addEventListener('storage', handleUpdate);
+    window.addEventListener('kp_portfolio_updated', syncData);
+    window.addEventListener('storage', syncData);
     return () => {
-      window.removeEventListener('kp_portfolio_updated', handleUpdate);
-      window.removeEventListener('storage', handleUpdate);
+      window.removeEventListener('kp_portfolio_updated', syncData);
+      window.removeEventListener('storage', syncData);
     };
   }, []);
 

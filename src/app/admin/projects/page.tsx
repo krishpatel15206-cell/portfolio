@@ -60,15 +60,30 @@ export default function AdminProjectsPage() {
   };
 
   // Upload Cover Image handler
-  const handleCoverUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCoverUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && editingProject) {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.url) {
+          setEditingProject({
+            ...editingProject,
+            coverImage: data.url,
+          });
+          return;
+        }
+      } catch (err) {
+        console.warn('Upload endpoint error, using local fallback:', err);
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
-        const base64 = reader.result as string;
         setEditingProject({
           ...editingProject,
-          coverImage: base64,
+          coverImage: reader.result as string,
         });
       };
       reader.readAsDataURL(file);
@@ -76,33 +91,60 @@ export default function AdminProjectsPage() {
   };
 
   // Upload Additional Screenshots handler
-  const handleScreenshotsUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleScreenshotsUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files && files.length > 0 && editingProject) {
       const newImages = [...(editingProject.images || [])];
-      let loadedCount = 0;
-
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          newImages.push(reader.result as string);
-          loadedCount++;
-          if (loadedCount === files.length) {
-            setEditingProject({
-              ...editingProject,
-              images: newImages,
-            });
+      for (const file of Array.from(files)) {
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+          const res = await fetch('/api/upload', { method: 'POST', body: formData });
+          const data = await res.json();
+          if (data.url) {
+            newImages.push(data.url);
+            continue;
           }
-        };
-        reader.readAsDataURL(file);
+        } catch {
+          // fallback
+        }
+
+        await new Promise<void>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            newImages.push(reader.result as string);
+            resolve();
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+      setEditingProject({
+        ...editingProject,
+        images: newImages,
       });
     }
   };
 
   // Upload Case Study PDF handler
-  const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && editingProject) {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        if (data.url) {
+          setEditingProject({
+            ...editingProject,
+            caseStudyPdfUrl: data.url,
+          });
+          return;
+        }
+      } catch (err) {
+        console.warn('PDF upload error, using local fallback:', err);
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setEditingProject({
