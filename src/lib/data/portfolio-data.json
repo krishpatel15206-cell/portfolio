@@ -10,9 +10,9 @@
       "With a background in computer science, I also understand the technical side of digital products, allowing me to connect design thinking with practical implementation.",
       "I'm continuously learning, experimenting with design tools and building projects to improve my creative and technical skills."
     ],
-    "location": "Anand,Gujarat, India",
+    "location": "Borsad, Anand, Gujarat",
     "email": "krishpatel15206@gmail.com",
-    "phone": "+91 98765 43210",
+    "phone": "+91 93137 76863",
     "linkedin": "https://www.linkedin.com/in/krish-patel-778715411?utm_source=share_via&utm_content=profile&utm_medium=member_android",
     "github": "https://github.com/krishpatel15206-cell",
     "figma": "",
@@ -223,40 +223,40 @@
       "id": "exp-1",
       "company": "InternPe",
       "position": "UI/UX Design Intern",
-      "period": "May – June 2026",
+      "period": "May 2026 – Jun 2026",
       "duration": "4 weeks",
-      "description": "Worked on UI design assignments, practicing visual layouts, interface design, and prototyping in Figma.",
+      "description": "Designed and prototyped 4 end-to-end industry UI/UX projects in Figma across food delivery, audio streaming, e-commerce, and coffee branding.",
       "tasks": [
-        "Designed a restaurant menu mobile application in Figma.",
-        "Designed a modern e-commerce website interface in Figma.",
-        "Worked on UI design assignments.",
-        "Practised visual layouts, interface design and prototyping."
+        "Designed and prototyped 4 end-to-end UI/UX projects in Figma — GourmetGo (food ordering app), Soundix (audio e-commerce store), Nike Air (promotional landing page), and Brew Haven (coffee shop app).",
+        "Built interactive, high-fidelity prototypes with Smart Animate transitions and On Click/On Drag/Navigate To triggers, mapping user journeys from browsing to checkout.",
+        "Designed interactive UI components (bottom tab bars, popups, toggle buttons) with consistent grid/auto-layout across 4 industry domains — food, e-commerce, retail, and marketing.",
+        "Applied color theory, typography hierarchy, and high-contrast CTAs tailored to each brand's identity, using Figma Auto Layout, frame structuring, and FigJam for flow mapping."
       ],
       "order": 1
     },
     {
       "id": "exp-2",
-      "company": "Webial Technology",
-      "position": "AI Intern – GTU Phase 2",
-      "period": "July – August 2023",
-      "duration": "2 months",
-      "description": "Participated in the GTU Phase 2 AI internship program. Project description and responsibilities to be added by designer.",
+      "company": "Webial Technology Pvt. Ltd.",
+      "position": "AI Intern (GTU Phase-2)",
+      "period": "Jul 2023 – Aug 2023",
+      "duration": "6 weeks • V.V. Nagar",
+      "description": "Completed intensive practical training in Artificial Intelligence under the GTU Phase-2 program.",
       "tasks": [
-        "GTU Phase 2 Programme participant.",
-        "Explored artificial intelligence and machine learning fundamentals."
+        "Participated in the GTU Phase-2 Artificial Intelligence internship program in V.V. Nagar.",
+        "Gained hands-on exposure to artificial intelligence concepts, data processing pipelines, and algorithmic problem-solving."
       ],
       "order": 2
     },
     {
       "id": "exp-3",
-      "company": "Webial Technology",
+      "company": "Webial Technology Pvt. Ltd.",
       "position": "Web Development Intern",
-      "period": "September 2022",
-      "duration": "1 month",
-      "description": "Web development internship. Tasks and responsibilities to be added by designer.",
+      "period": "Sep 2022",
+      "duration": "2 weeks • V.V. Nagar",
+      "description": "Hands-on web development internship focused on responsive web fundamentals.",
       "tasks": [
-        "Worked on frontend and web development basics.",
-        "Practiced HTML, CSS and web structuring."
+        "Completed hands-on web development training in frontend technologies in V.V. Nagar.",
+        "Practiced building responsive layouts, semantic HTML/CSS structuring, and clean web styling."
       ],
       "order": 3
     }
