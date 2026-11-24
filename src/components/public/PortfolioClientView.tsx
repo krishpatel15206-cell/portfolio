@@ -18,6 +18,7 @@ import {
   getSkills 
 } from '@/lib/storage';
 import CustomCursor from '@/components/public/CustomCursor';
+import ScrollAnimationManager from '@/components/public/ScrollAnimationManager';
 import Navbar from '@/components/public/Navbar';
 import Hero from '@/components/public/Hero';
 import SelectedWork from '@/components/public/SelectedWork';
@@ -83,6 +84,9 @@ export default function PortfolioClientView({
     <main className="min-h-screen bg-[#08080a] text-[#f4f4f5] relative selection:bg-[#ccff00] selection:text-black">
       {/* Custom magnetic interactive cursor */}
       <CustomCursor />
+
+      {/* Creative Scroll Animation Orchestrator */}
+      <ScrollAnimationManager />
 
       {/* Sticky Top Navbar */}
       <Navbar resumeUrl={profile.resumeUrl} />

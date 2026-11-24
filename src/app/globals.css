@@ -119,19 +119,6 @@ body {
   animation: float-subtle 4s ease-in-out infinite;
 }
 
-/* Static clean visibility for all elements (No scroll animation delays or pop-ups) */
-.anim-project-card,
-.anim-section-header,
-.anim-timeline-item,
-.anim-edu-card,
-.anim-cert-card,
-.anim-contact-headline,
-.anim-skill-item {
-  opacity: 1 !important;
-  transform: none !important;
-  transition: none;
-}
-
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   * {

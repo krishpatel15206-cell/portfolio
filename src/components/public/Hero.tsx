@@ -1,6 +1,8 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { ArrowUpRight, MapPin, Sparkles } from 'lucide-react';
+import { gsap } from 'gsap';
 import { Profile } from '@/types/portfolio';
 
 interface HeroProps {
@@ -8,9 +10,73 @@ interface HeroProps {
 }
 
 export default function Hero({ profile }: HeroProps) {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const orbRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const ctx = gsap.context(() => {
+      // Cinematic staggered entrance
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      tl.from('.hero-title-word', {
+        yPercent: 100,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.12,
+      })
+      .from('.hero-subtext', {
+        y: 24,
+        opacity: 0,
+        duration: 0.7,
+      }, '-=0.5')
+      .from('.hero-cta-btn', {
+        y: 20,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+      }, '-=0.4')
+      .from(canvasRef.current, {
+        scale: 0.9,
+        opacity: 0,
+        duration: 1.0,
+        ease: 'power3.out',
+      }, '-=0.8')
+      .from('.hero-floating-badge', {
+        scale: 0,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'back.out(1.5)',
+      }, '-=0.4');
+
+      // Fluid mouse parallax on canvas
+      const handleMouseMove = (e: MouseEvent) => {
+        if (!canvasRef.current) return;
+        const xOffset = (e.clientX / window.innerWidth - 0.5) * 16;
+        const yOffset = (e.clientY / window.innerHeight - 0.5) * 16;
+
+        gsap.to(canvasRef.current, {
+          x: xOffset,
+          y: yOffset,
+          duration: 0.8,
+          ease: 'power2.out',
+        });
+      };
+
+      window.addEventListener('mousemove', handleMouseMove);
+      return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
       id="hero"
+      ref={heroRef}
       className="relative min-h-[92vh] md:min-h-screen flex items-center justify-center pt-24 pb-16 px-6 sm:px-8 overflow-hidden"
     >
       {/* Background subtle radial ambient gradients */}
@@ -20,18 +86,18 @@ export default function Hero({ profile }: HeroProps) {
       <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
         {/* Left Column: Typography & CTAs */}
         <div className="lg:col-span-7 z-10 flex flex-col justify-center">
-          {/* Main Huge Headline */}
-          <div>
-            <h1
-              className="font-['Space_Grotesk'] text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-white leading-[0.92] uppercase"
-            >
-              <span className="block">KRISH</span>
-              <span className="block text-[#f4f4f5]">PATEL</span>
-            </h1>
-          </div>
+          {/* Main Huge Headline with Overflow Mask */}
+          <h1 className="font-['Space_Grotesk'] text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-white leading-[0.92] uppercase">
+            <div className="overflow-hidden">
+              <span className="hero-title-word block">KRISH</span>
+            </div>
+            <div className="overflow-hidden">
+              <span className="hero-title-word block text-[#f4f4f5]">PATEL</span>
+            </div>
+          </h1>
 
           {/* Subtitle & Tagline */}
-          <div className="mt-6 sm:mt-8 space-y-3 max-w-xl">
+          <div className="hero-subtext mt-6 sm:mt-8 space-y-3 max-w-xl">
             <p className="text-sm sm:text-base font-semibold tracking-wide text-[#ccff00] uppercase">
               {profile.title}
             </p>
@@ -48,7 +114,7 @@ export default function Hero({ profile }: HeroProps) {
                 e.preventDefault();
                 document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-sm uppercase tracking-wider transition-colors shadow-lg shadow-[#ccff00]/20"
+              className="hero-cta-btn inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-lg shadow-[#ccff00]/20 hover:scale-105 active:scale-95"
             >
               <span>View My Work</span>
               <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
@@ -60,7 +126,7 @@ export default function Hero({ profile }: HeroProps) {
                 e.preventDefault();
                 document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#16171b] hover:bg-[#222329] border border-[#27272a] hover:border-[#3f3f46] text-[#f4f4f5] font-semibold text-sm transition-colors"
+              className="hero-cta-btn inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#16171b] hover:bg-[#222329] border border-[#27272a] hover:border-[#3f3f46] text-[#f4f4f5] font-semibold text-sm transition-all duration-300 hover:scale-105 active:scale-95"
             >
               <span>About Me</span>
             </a>
@@ -72,7 +138,7 @@ export default function Hero({ profile }: HeroProps) {
             className="mt-14 sm:mt-20 flex items-center gap-3 text-xs tracking-widest text-[#71717a] hover:text-[#ccff00] uppercase cursor-pointer transition-colors select-none"
           >
             <div className="w-5 h-8 rounded-full border border-[#3f3f46] flex items-start justify-center p-1">
-              <span className="w-1.5 h-2 rounded-full bg-[#ccff00]" />
+              <span className="w-1.5 h-2 rounded-full bg-[#ccff00] animate-bounce" />
             </div>
             <span>Scroll to explore</span>
           </div>
@@ -81,34 +147,36 @@ export default function Hero({ profile }: HeroProps) {
         {/* Right Column: Hero Visual, Lime Aura, Orbital Rings, & UI/UX Designer Canvas */}
         <div className="lg:col-span-5 relative flex justify-center items-center">
           <div
-            className="relative w-[320px] h-[360px] sm:w-[390px] sm:h-[430px] md:w-[430px] md:h-[460px] flex items-center justify-center"
+            ref={canvasRef}
+            className="relative w-[320px] h-[360px] sm:w-[390px] sm:h-[430px] md:w-[430px] md:h-[460px] flex items-center justify-center will-change-transform"
           >
-            {/* Electric Lime Circular Aura */}
+            {/* Pulsing Electric Lime Circular Aura */}
             <div
-              className="absolute w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full bg-[#ccff00] filter blur-none shadow-[0_0_90px_rgba(204,255,0,0.45)]"
+              ref={orbRef}
+              className="absolute w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full bg-[#ccff00] filter blur-none shadow-[0_0_90px_rgba(204,255,0,0.45)] animate-pulse-slow"
               style={{
                 background: 'radial-gradient(circle at 40% 40%, #e5ff66 0%, #ccff00 55%, #88b300 100%)',
               }}
             />
 
             {/* Orbiting 3D Dashed Ellipse with Star */}
-            <div className="absolute w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] rounded-full border border-dashed border-[#ccff00]/40 pointer-events-none">
+            <div className="absolute w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] rounded-full border border-dashed border-[#ccff00]/40 animate-spin-slow pointer-events-none">
               <div className="absolute -top-2 left-1/2 -translate-x-1/2 bg-[#08080a] p-1 rounded-full border border-[#ccff00]">
                 <Sparkles className="w-3.5 h-3.5 text-[#ccff00]" />
               </div>
             </div>
 
             {/* UI/UX Designer Interactive Canvas & Design System Frame */}
-            <div className="relative z-10 w-full max-w-[320px] sm:max-w-[360px] rounded-3xl bg-[#0e0f13] border border-[#262833] p-5 sm:p-6 shadow-[0_25px_60px_rgba(0,0,0,0.9)]">
+            <div className="relative z-10 w-full max-w-[320px] sm:max-w-[360px] rounded-3xl bg-[#0e0f13]/95 backdrop-blur-2xl border border-[#262833] p-5 sm:p-6 shadow-[0_25px_60px_rgba(0,0,0,0.9)] hover:border-[#ccff00]/60 transition-all duration-500 group">
               {/* Top Frame Window Bar */}
               <div className="flex items-center justify-between pb-3.5 border-b border-[#1e2029]">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#ef4444]" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#eab308]" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#22c55e]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ef4444]/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#eab308]/80" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#22c55e]/80" />
                 </div>
                 <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#181920] border border-[#272833] text-[10px] font-mono text-[#a1a1aa]">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00]" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ccff00] animate-ping" />
                   <span>Figma • 375×812</span>
                 </div>
               </div>
@@ -188,7 +256,7 @@ export default function Hero({ profile }: HeroProps) {
             </div>
 
             {/* Floating Handwritten Style Label: UI/UX Designer */}
-            <div className="absolute -top-3 -right-2 sm:right-2 z-20 pointer-events-none">
+            <div className="hero-floating-badge absolute -top-3 -right-2 sm:right-2 z-20 animate-float pointer-events-none">
               <div className="flex flex-col items-end">
                 <span className="font-['Space_Grotesk'] text-[#ccff00] text-sm sm:text-base font-bold italic tracking-wide">
                   UI/UX Designer
@@ -210,8 +278,8 @@ export default function Hero({ profile }: HeroProps) {
             </div>
 
             {/* Floating Glass Pill Badge: Location */}
-            <div className="absolute -bottom-3 -right-2 sm:right-0 z-20">
-              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121316] border border-[#27272a] shadow-xl text-xs font-medium text-[#f4f4f5]">
+            <div className="hero-floating-badge absolute -bottom-3 -right-2 sm:right-0 z-20">
+              <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#121316]/90 backdrop-blur-md border border-[#27272a] shadow-xl text-xs font-medium text-[#f4f4f5] hover:border-[#ccff00]/50 transition-colors">
                 <span className="text-[#ccff00]"><MapPin className="w-3.5 h-3.5 fill-[#ccff00]/20" /></span>
                 <span>Based in <span className="text-white font-semibold">{profile.location}</span></span>
               </div>
