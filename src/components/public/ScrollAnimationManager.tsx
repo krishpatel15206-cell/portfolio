@@ -7,12 +7,12 @@ export default function ScrollAnimationManager() {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    // Use IntersectionObserver with 200px anticipatory buffer
-    // so animations trigger BEFORE the user reaches the section!
+    // Observer configured to trigger precisely as element enters the viewport
+    // (50px inside viewport from the bottom), ensuring animations are seen in motion!
     const observerOptions: IntersectionObserverInit = {
       root: null,
-      rootMargin: '200px 0px 0px 0px', // Triggers 200px early!
-      threshold: 0.01,
+      rootMargin: '0px 0px -50px 0px',
+      threshold: 0.1,
     };
 
     const animatedElements = new Set<Element>();
@@ -23,114 +23,114 @@ export default function ScrollAnimationManager() {
           animatedElements.add(entry.target);
           const el = entry.target as HTMLElement;
 
-          // 1. PROJECT CARDS POP
+          // 1. PROJECT CARDS - Smooth luxury upward glide & scale
           if (el.classList.contains('anim-project-card')) {
             gsap.fromTo(
               el,
-              { scale: 0.85, y: 35, opacity: 0 },
+              { y: 50, scale: 0.95, opacity: 0 },
               {
-                scale: 1,
                 y: 0,
-                opacity: 1,
-                duration: 0.38,
-                ease: 'back.out(1.8)',
-                clearProps: 'transform,opacity',
-              }
-            );
-          }
-
-          // 2. SKILLS SQUIRCLES RAPID POP
-          else if (el.classList.contains('anim-skills-grid')) {
-            const items = el.querySelectorAll('.anim-skill-item');
-            gsap.fromTo(
-              items,
-              { scale: 0.3, opacity: 0 },
-              {
                 scale: 1,
                 opacity: 1,
-                duration: 0.32,
-                stagger: 0.025,
-                ease: 'back.out(2.2)',
-                clearProps: 'transform,opacity',
-              }
-            );
-          }
-
-          // 3. SECTION HEADERS
-          else if (el.classList.contains('anim-section-header')) {
-            gsap.fromTo(
-              el,
-              { scale: 0.94, y: 20, opacity: 0 },
-              {
-                scale: 1,
-                y: 0,
-                opacity: 1,
-                duration: 0.35,
+                duration: 0.75,
                 ease: 'power3.out',
                 clearProps: 'transform,opacity',
               }
             );
           }
 
-          // 4. TIMELINE ITEMS
+          // 2. SKILLS SQUIRCLES - Fluid cascading stagger
+          else if (el.classList.contains('anim-skills-grid')) {
+            const items = el.querySelectorAll('.anim-skill-item');
+            gsap.fromTo(
+              items,
+              { y: 25, scale: 0.88, opacity: 0 },
+              {
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.04,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 3. SECTION HEADERS - Elegant fade-slide
+          else if (el.classList.contains('anim-section-header')) {
+            gsap.fromTo(
+              el,
+              { y: 35, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 0.7,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity',
+              }
+            );
+          }
+
+          // 4. TIMELINE ITEMS - Slide in from left with smooth settle
           else if (el.classList.contains('anim-timeline-item')) {
             gsap.fromTo(
               el,
-              { x: -25, opacity: 0, scale: 0.92 },
+              { x: -35, opacity: 0, scale: 0.96 },
               {
                 x: 0,
                 opacity: 1,
                 scale: 1,
-                duration: 0.35,
-                ease: 'back.out(1.6)',
+                duration: 0.75,
+                ease: 'power3.out',
                 clearProps: 'transform,opacity',
               }
             );
           }
 
-          // 5. EDUCATION CARDS
+          // 5. EDUCATION CARDS - Smooth rise & pop
           else if (el.classList.contains('anim-edu-card')) {
             gsap.fromTo(
               el,
-              { y: 25, opacity: 0, scale: 0.92 },
+              { y: 35, opacity: 0, scale: 0.96 },
               {
                 y: 0,
                 opacity: 1,
                 scale: 1,
-                duration: 0.35,
-                ease: 'back.out(1.5)',
+                duration: 0.7,
+                ease: 'power3.out',
                 clearProps: 'transform,opacity',
               }
             );
           }
 
-          // 6. CERTIFICATES
+          // 6. CERTIFICATES - Subtle float-up
           else if (el.classList.contains('anim-cert-card')) {
             gsap.fromTo(
               el,
-              { y: 25, scale: 0.9, opacity: 0 },
+              { y: 35, scale: 0.95, opacity: 0 },
               {
                 y: 0,
                 scale: 1,
                 opacity: 1,
-                duration: 0.35,
-                ease: 'back.out(1.6)',
+                duration: 0.7,
+                ease: 'power3.out',
                 clearProps: 'transform,opacity',
               }
             );
           }
 
-          // 7. CONTACT HEADLINE
+          // 7. CONTACT HEADLINE - Impactful smooth reveal
           else if (el.classList.contains('anim-contact-headline')) {
             gsap.fromTo(
               el,
-              { scale: 0.85, y: 35, opacity: 0 },
+              { y: 55, scale: 0.96, opacity: 0 },
               {
-                scale: 1,
                 y: 0,
+                scale: 1,
                 opacity: 1,
-                duration: 0.45,
-                ease: 'back.out(1.6)',
+                duration: 0.85,
+                ease: 'power3.out',
                 clearProps: 'transform,opacity',
               }
             );
