@@ -15,7 +15,7 @@ export const initialProfile: Profile = {
   email: "krishpatel15206@gmail.com",
   phone: "+91 98765 43210",
   linkedin: "https://linkedin.com/in/krishpatel-design",
-  github: "https://github.com/krishpatel",
+  github: "https://github.com/krishpatel15206-cell",
   figma: "https://figma.com/@krishpatel",
   cgpa: "8.25", // Editable field (previously shared 8.17 and 8.25)
   diplomaCgpa: "7.51/10",
