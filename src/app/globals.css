@@ -119,7 +119,7 @@ body {
   animation: float-subtle 4s ease-in-out infinite;
 }
 
-/* Buttery-Smooth Creative Scroll Reveal (GPU Accelerated) */
+/* Static clean visibility for all elements (No scroll animation delays or pop-ups) */
 .anim-project-card,
 .anim-section-header,
 .anim-timeline-item,
@@ -127,46 +127,10 @@ body {
 .anim-cert-card,
 .anim-contact-headline,
 .anim-skill-item {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none;
 }
-
-.anim-project-card.is-revealed,
-.anim-section-header.is-revealed,
-.anim-timeline-item.is-revealed,
-.anim-edu-card.is-revealed,
-.anim-cert-card.is-revealed,
-.anim-contact-headline.is-revealed,
-.anim-skill-item.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Subtle staggered delays for sibling elements */
-.anim-project-card:nth-child(2) { transition-delay: 0.12s; }
-.anim-skill-item:nth-child(2) { transition-delay: 0.03s; }
-.anim-skill-item:nth-child(3) { transition-delay: 0.06s; }
-.anim-skill-item:nth-child(4) { transition-delay: 0.09s; }
-.anim-skill-item:nth-child(5) { transition-delay: 0.12s; }
-.anim-skill-item:nth-child(6) { transition-delay: 0.15s; }
-.anim-skill-item:nth-child(7) { transition-delay: 0.18s; }
-.anim-skill-item:nth-child(8) { transition-delay: 0.21s; }
-.anim-skill-item:nth-child(9) { transition-delay: 0.24s; }
-.anim-skill-item:nth-child(10) { transition-delay: 0.27s; }
-.anim-skill-item:nth-child(11) { transition-delay: 0.30s; }
-.anim-skill-item:nth-child(12) { transition-delay: 0.33s; }
-.anim-skill-item:nth-child(13) { transition-delay: 0.36s; }
-.anim-skill-item:nth-child(14) { transition-delay: 0.39s; }
-.anim-skill-item:nth-child(15) { transition-delay: 0.42s; }
-.anim-skill-item:nth-child(16) { transition-delay: 0.45s; }
-
-.anim-edu-card:nth-child(2) { transition-delay: 0.1s; }
-.anim-cert-card:nth-child(2) { transition-delay: 0.08s; }
-.anim-cert-card:nth-child(3) { transition-delay: 0.16s; }
-.anim-timeline-item:nth-child(2) { transition-delay: 0.12s; }
 
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
