@@ -149,7 +149,7 @@ export const initialProjects: Project[] = [
     tags: ["UI/UX", "Mobile App", "Figma", "Food Design"],
     accentColor: "#F97316",
     year: "2025",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     featured: false,
     published: true,
     order: 4
@@ -179,7 +179,7 @@ export const initialProjects: Project[] = [
     tags: ["UI/UX", "Audio Experience", "Figma", "Music App"],
     accentColor: "#8B5CF6",
     year: "2025",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     featured: false,
     published: true,
     order: 5
@@ -209,7 +209,7 @@ export const initialProjects: Project[] = [
     tags: ["UI/UX", "E-Commerce", "Branding", "Concept"],
     accentColor: "#CCFF00",
     year: "2025",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     featured: false,
     published: true,
     order: 6
@@ -239,7 +239,7 @@ export const initialProjects: Project[] = [
     tags: ["UI/UX", "Branding", "Packaging", "Mobile App"],
     accentColor: "#D97706",
     year: "2024",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     featured: false,
     published: true,
     order: 7

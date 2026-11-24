@@ -24,17 +24,15 @@ interface ProjectPageProps {
 }
 
 export async function generateStaticParams() {
-  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
-  return projects
-    .filter((project) => project.hasCaseStudy)
-    .map((project) => ({
-      slug: project.slug,
-    }));
+  const [projects] = await Promise.all([getProjects()]);
+  return projects.map((project) => ({
+    slug: project.slug,
+  }));
 }
 
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
+  const projects = await getProjects();
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) return { title: 'Project Not Found | Krish Patel' };
@@ -50,17 +48,15 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
   const currentIndex = projects.findIndex((p) => p.slug === slug);
 
-  if (currentIndex === -1 || !projects[currentIndex].hasCaseStudy) {
+  if (currentIndex === -1) {
     notFound();
   }
 
   const project = projects[currentIndex];
 
-  // ONLY cycle between projects that actually have a case study!
-  const caseStudyProjects = projects.filter((p) => p.hasCaseStudy);
-  const currentCaseIndex = caseStudyProjects.findIndex((p) => p.slug === slug);
-  const nextCaseStudy = caseStudyProjects.length > 1
-    ? caseStudyProjects[(currentCaseIndex + 1) % caseStudyProjects.length]
+  // Cycle through all projects
+  const nextCaseStudy = projects.length > 1
+    ? projects[(currentIndex + 1) % projects.length]
     : null;
 
   return (

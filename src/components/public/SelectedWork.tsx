@@ -73,11 +73,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
             <div
               key={project.id}
               onClick={() => {
-                if (project.hasCaseStudy) {
-                  router.push(`/projects/${project.slug}`);
-                } else if (project.figmaUrl && project.figmaUrl.trim() !== '' && project.figmaUrl !== 'https://figma.com') {
-                  window.open(project.figmaUrl, '_blank', 'noopener,noreferrer');
-                }
+                router.push(`/projects/${project.slug}`);
               }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -169,43 +165,15 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                     </a>
                   )}
 
-                  {project.hasCaseStudy ? (
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black group-hover:bg-[#ccff00] transition-all duration-300 font-bold text-xs uppercase shadow-lg"
-                      aria-label={`View ${project.title}`}
-                    >
-                      <span>View Design</span>
-                      <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </Link>
-                  ) : project.figmaUrl && project.figmaUrl.trim() !== '' && project.figmaUrl !== 'https://figma.com' ? (
-                    <a
-                      href={project.figmaUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#ccff00] border border-[#27272a] hover:border-[#ccff00] transition-all text-xs font-semibold uppercase"
-                    >
-                      <span>Figma Prototype</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                  ) : project.githubUrl && project.githubUrl.trim() !== '' && project.githubUrl !== 'https://github.com' ? (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#38bdf8] border border-[#27272a] hover:border-[#38bdf8] transition-all text-xs font-semibold uppercase"
-                    >
-                      <span>GitHub</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                  ) : (
-                    <span className="px-3 py-1.5 rounded-full bg-[#16171a] border border-[#27272a] text-[#71717a] text-[11px] font-medium uppercase tracking-wider">
-                      Showcase
-                    </span>
-                  )}
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    onClick={(e) => e.stopPropagation()}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black group-hover:bg-[#ccff00] transition-all duration-300 font-bold text-xs uppercase shadow-lg"
+                    aria-label={`View ${project.title}`}
+                  >
+                    <span>View Case Study</span>
+                    <ArrowRight className="w-3.5 h-3.5 stroke-[2.5]" />
+                  </Link>
                 </div>
               </div>
             </div>
