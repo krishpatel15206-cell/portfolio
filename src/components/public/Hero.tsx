@@ -17,60 +17,22 @@ export default function Hero({ profile }: HeroProps) {
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const ctx = gsap.context(() => {
-      // Cinematic staggered entrance
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    // Smooth subtle mouse parallax on canvas (zero pop-up)
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!canvasRef.current) return;
+      const xOffset = (e.clientX / window.innerWidth - 0.5) * 16;
+      const yOffset = (e.clientY / window.innerHeight - 0.5) * 16;
 
-      tl.from('.hero-title-word', {
-        yPercent: 100,
-        opacity: 0,
-        duration: 0.9,
-        stagger: 0.12,
-      })
-      .from('.hero-subtext', {
-        y: 24,
-        opacity: 0,
-        duration: 0.7,
-      }, '-=0.5')
-      .from('.hero-cta-btn', {
-        y: 20,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.1,
-      }, '-=0.4')
-      .from(canvasRef.current, {
-        scale: 0.9,
-        opacity: 0,
-        duration: 1.0,
-        ease: 'power3.out',
-      }, '-=0.8')
-      .from('.hero-floating-badge', {
-        scale: 0,
-        opacity: 0,
-        duration: 0.6,
-        stagger: 0.15,
-        ease: 'back.out(1.5)',
-      }, '-=0.4');
+      gsap.to(canvasRef.current, {
+        x: xOffset,
+        y: yOffset,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
+    };
 
-      // Fluid mouse parallax on canvas
-      const handleMouseMove = (e: MouseEvent) => {
-        if (!canvasRef.current) return;
-        const xOffset = (e.clientX / window.innerWidth - 0.5) * 16;
-        const yOffset = (e.clientY / window.innerHeight - 0.5) * 16;
-
-        gsap.to(canvasRef.current, {
-          x: xOffset,
-          y: yOffset,
-          duration: 0.8,
-          ease: 'power2.out',
-        });
-      };
-
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
-    }, heroRef);
-
-    return () => ctx.revert();
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   return (

@@ -70,7 +70,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
           return (
             <div
               key={project.id}
-              className="anim-project-card group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 will-change-transform"
+              className="group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 transition-colors duration-200"
             >
               {/* Inner ambient glow background matching the card's accent */}
               <div
