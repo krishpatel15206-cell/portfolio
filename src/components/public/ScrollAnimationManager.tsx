@@ -23,8 +23,26 @@ export default function ScrollAnimationManager() {
       return () => window.removeEventListener('scroll', handleScroll);
     }
 
-    // 2. Pure Soft Fade & Subtle Drift (ZERO scale, ZERO pop-up, luxury feel)
+    // 2. Check for native CSS Scroll-Driven Animation support
+    const supportsScrollTimeline =
+      typeof window !== 'undefined' &&
+      typeof window.CSS !== 'undefined' &&
+      typeof window.CSS.supports === 'function' &&
+      window.CSS.supports('animation-timeline', 'view()');
+
+    // If native CSS scroll-driven animations are supported, the browser GPU compositor
+    // handles all scroll reveals smoothly without any JavaScript observer overhead or blinking.
+    if (supportsScrollTimeline) {
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
+
+    // 3. Blink-Free Fallback for browsers without CSS animation-timeline support
     const animatedElements = new WeakSet<Element>();
+
+    const isElementInView = (el: Element) => {
+      const rect = el.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    };
 
     const observer = new IntersectionObserver(
       (entries, obs) => {
@@ -34,135 +52,49 @@ export default function ScrollAnimationManager() {
             animatedElements.add(el);
             obs.unobserve(el);
 
-            // Project Cards: Soft vertical fade (No pop-up, no scale)
-            if (el.classList.contains('anim-project-card')) {
-              gsap.fromTo(
-                el,
-                { y: 26, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.75,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
-
-            // Skills Grid: Soft ripple fade
-            else if (el.classList.contains('anim-skills-grid')) {
-              const items = el.querySelectorAll('.anim-skill-item');
-              gsap.fromTo(
-                items,
-                { y: 18, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.55,
-                  stagger: 0.03,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
-
-            // Section Headers: Clean soft reveal
-            else if (el.classList.contains('anim-section-header')) {
-              gsap.fromTo(
-                el,
-                { y: 22, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.65,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
-
-            // Timeline Items: Gentle horizontal slide
-            else if (el.classList.contains('anim-timeline-item')) {
-              gsap.fromTo(
-                el,
-                { x: -24, opacity: 0 },
-                {
-                  x: 0,
-                  opacity: 1,
-                  duration: 0.65,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
-
-            // Education Cards: Soft fade up
-            else if (el.classList.contains('anim-edu-card')) {
-              gsap.fromTo(
-                el,
-                { y: 22, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.65,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
-
-            // Certificate Cards: Soft fade up
-            else if (el.classList.contains('anim-cert-card')) {
-              gsap.fromTo(
-                el,
-                { y: 22, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.65,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
-
-            // Contact Headline: Smooth fade
-            else if (el.classList.contains('anim-contact-headline')) {
-              gsap.fromTo(
-                el,
-                { y: 30, opacity: 0 },
-                {
-                  y: 0,
-                  opacity: 1,
-                  duration: 0.8,
-                  ease: 'power2.out',
-                  clearProps: 'transform,opacity',
-                }
-              );
-            }
+            // Smooth fade up reveal (never abruptly snaps opacity to 0)
+            gsap.to(el, {
+              y: 0,
+              x: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: 'power2.out',
+              clearProps: 'transform,opacity',
+            });
           }
         });
       },
       {
         root: null,
         rootMargin: '0px 0px -40px 0px',
-        threshold: 0.08,
+        threshold: 0.05,
       }
     );
 
     const observeTargets = () => {
       const targets = document.querySelectorAll(
-        '.anim-project-card, .anim-skills-grid, .anim-section-header, .anim-timeline-item, .anim-edu-card, .anim-cert-card, .anim-contact-headline'
+        '.scroll-driven-card, .scroll-driven-header, .scroll-driven-timeline, .scroll-driven-item'
       );
       targets.forEach((target) => {
         if (!animatedElements.has(target)) {
-          observer.observe(target);
+          if (isElementInView(target)) {
+            // Already visible on screen: do not hide or blink!
+            animatedElements.add(target);
+          } else {
+            // Below fold: initialize hidden before entering view
+            const isTimeline = target.classList.contains('scroll-driven-timeline');
+            gsap.set(target, {
+              opacity: 0,
+              y: isTimeline ? 0 : 24,
+              x: isTimeline ? -20 : 0,
+            });
+            observer.observe(target);
+          }
         }
       });
     };
 
     observeTargets();
-
     const timer = setTimeout(observeTargets, 200);
     window.addEventListener('kp_portfolio_updated', observeTargets);
 
@@ -176,12 +108,12 @@ export default function ScrollAnimationManager() {
 
   return (
     <div
-      className="fixed top-0 left-0 right-0 h-[2.5px] z-50 pointer-events-none origin-left"
+      className="scroll-driven-progress fixed top-0 left-0 right-0 h-[2.5px] z-50 pointer-events-none origin-left"
       style={{
         transform: `scaleX(${scrollProgress})`,
         background: 'linear-gradient(90deg, #ccff00, #b8e600)',
         boxShadow: '0 0 12px rgba(204, 255, 0, 0.7)',
-        transition: 'transform 0.06s linear',
+        transition: 'transform 0.05s linear',
       }}
     />
   );

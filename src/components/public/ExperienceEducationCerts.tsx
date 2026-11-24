@@ -23,7 +23,7 @@ export default function ExperienceEducationCerts({
         
         {/* COLUMN 1: EXPERIENCE / 02 */}
         <div className="flex flex-col">
-          <div className="anim-section-header flex items-center gap-3 pb-6 border-b border-[#222329]">
+          <div className="scroll-driven-header flex items-center gap-3 pb-6 border-b border-[#222329]">
             <h3 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-white">
               EXPERIENCE
             </h3>
@@ -32,7 +32,7 @@ export default function ExperienceEducationCerts({
 
           <div className="relative mt-8 pl-6 border-l-2 border-[#222329] space-y-8 anim-timeline-line origin-top">
             {experiences.map((exp, idx) => (
-              <div key={exp.id} className="anim-timeline-item relative group transition-all duration-300 hover:translate-x-1.5">
+              <div key={exp.id} className="scroll-driven-timeline relative group transition-all duration-300 hover:translate-x-1.5">
                 {/* Glowing Lime Node on timeline */}
                 <span className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-[#121316] border-2 border-[#ccff00] group-hover:bg-[#ccff00] transition-colors duration-200 shadow-[0_0_10px_rgba(204,255,0,0.5)]" />
 
@@ -71,7 +71,7 @@ export default function ExperienceEducationCerts({
 
         {/* COLUMN 2: EDUCATION / 03 */}
         <div className="flex flex-col">
-          <div className="anim-section-header flex items-center gap-3 pb-6 border-b border-[#222329]">
+          <div className="scroll-driven-header flex items-center gap-3 pb-6 border-b border-[#222329]">
             <h3 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-white">
               EDUCATION
             </h3>
@@ -82,7 +82,7 @@ export default function ExperienceEducationCerts({
             {educations.map((edu) => (
               <div
                 key={edu.id}
-                className="anim-edu-card group p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/40 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/60"
+                className="scroll-driven-card group p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/40 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/60"
               >
                 {/* Graduation Cap in Lime-tinted circle */}
                 <div className="w-10 h-10 rounded-full bg-[#1c2214] border border-[#ccff00]/30 flex items-center justify-center shrink-0 group-hover:border-[#ccff00] transition-colors">
@@ -112,7 +112,7 @@ export default function ExperienceEducationCerts({
 
         {/* COLUMN 3: CERTIFICATES / 04 */}
         <div id="certificates" className="flex flex-col">
-          <div className="flex items-center justify-between pb-6 border-b border-[#222329]">
+          <div className="scroll-driven-header flex items-center justify-between pb-6 border-b border-[#222329]">
             <div className="flex items-center gap-3">
               <h3 className="font-['Space_Grotesk'] text-sm font-bold uppercase tracking-wider text-white">
                 CERTIFICATES
@@ -128,7 +128,7 @@ export default function ExperienceEducationCerts({
               <div
                 key={cert.id}
                 onClick={() => setSelectedCert(cert)}
-                className="anim-cert-card group relative p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/50 hover:bg-[#16171b] cursor-pointer shadow-lg flex items-center justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/60"
+                className="scroll-driven-card group relative p-5 rounded-2xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/50 hover:bg-[#16171b] cursor-pointer shadow-lg flex items-center justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/60"
               >
                 <div className="flex items-start gap-3.5">
                   <div className="w-9 h-9 rounded-xl bg-[#1a1c14] border border-[#ccff00]/30 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">

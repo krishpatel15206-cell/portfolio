@@ -63,7 +63,7 @@ export default function AboutSection({ profile, skills }: AboutSectionProps) {
     <section id="about" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         {/* Left Column: About Me Bio & Headline */}
-        <div className="anim-section-header lg:col-span-6 flex flex-col justify-start">
+        <div className="scroll-driven-header lg:col-span-6 flex flex-col justify-start">
           <div className="flex items-center gap-3 pb-4">
             <h2 className="font-['Space_Grotesk'] text-xs font-bold uppercase tracking-widest text-[#a1a1aa]">
               ABOUT ME
@@ -112,13 +112,13 @@ export default function AboutSection({ profile, skills }: AboutSectionProps) {
           </div>
 
           {/* Squircles Matrix matching mockup */}
-          <div className="anim-skills-grid grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 pt-2">
+          <div className="scroll-driven-card grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4 pt-2">
             {skills.map((skill) => {
               const isDesign = skill.category === 'design';
               return (
                 <div
                   key={skill.id}
-                  className={`anim-skill-item group relative p-4 rounded-2xl flex flex-col items-center justify-center text-center border transition-all duration-300 ${
+                  className={`scroll-driven-item group relative p-4 rounded-2xl flex flex-col items-center justify-center text-center border transition-all duration-300 ${
                     isDesign
                       ? 'bg-[#14151a] border-[#262832] hover:border-[#ccff00]/80 hover:bg-[#181a22] hover:shadow-lg hover:shadow-[#ccff00]/15'
                       : 'bg-[#101114] border-[#1d1f26] hover:border-[#38bdf8]/70 hover:bg-[#14151a] hover:shadow-lg hover:shadow-[#38bdf8]/15'

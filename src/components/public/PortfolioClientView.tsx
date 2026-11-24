@@ -55,6 +55,18 @@ export default function PortfolioClientView({
   // Sync client-side localStorage updates (e.g. newly uploaded photo or edited project)
   useEffect(() => {
     async function syncFromClient() {
+      // Avoid re-renders on initial mount if no local overrides exist
+      const hasLocalOverrides = 
+        typeof window !== 'undefined' &&
+        (localStorage.getItem('kp_portfolio_profile') ||
+         localStorage.getItem('kp_portfolio_projects') ||
+         localStorage.getItem('kp_portfolio_experiences') ||
+         localStorage.getItem('kp_portfolio_educations') ||
+         localStorage.getItem('kp_portfolio_certificates') ||
+         localStorage.getItem('kp_portfolio_skills'));
+
+      if (!hasLocalOverrides) return;
+
       const [p, pr, ex, ed, ce, sk] = await Promise.all([
         getProfile(),
         getProjects(),
@@ -71,14 +83,16 @@ export default function PortfolioClientView({
       setSkills(sk);
     }
 
-    syncFromClient();
-
     const handleUpdate = () => {
       syncFromClient();
     };
 
     window.addEventListener('kp_portfolio_updated', handleUpdate);
-    return () => window.removeEventListener('kp_portfolio_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('kp_portfolio_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
   }, []);
 
   return (

@@ -50,7 +50,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
 
       <div className="relative z-10 flex flex-col justify-between">
         {/* Giant Headline */}
-        <div className="anim-contact-headline will-change-transform">
+        <div className="scroll-driven-header will-change-transform">
           <h2 className="font-['Space_Grotesk'] text-5xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight text-white uppercase leading-[0.92]">
             LET&apos;S <br />
             WORK <span className="text-[#ccff00]">TOGETHER.</span>
@@ -58,7 +58,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
         </div>
 
         {/* Action Row */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-[#222329]/80 flex flex-col md:flex-row md:items-center justify-between gap-8">
+        <div className="scroll-driven-card mt-12 sm:mt-16 pt-8 border-t border-[#222329]/80 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div>
             <p className="text-sm sm:text-base text-[#d4d4d8] font-medium max-w-md">
               Have a project, opportunity or just want to say hi? I&apos;d love to connect.
