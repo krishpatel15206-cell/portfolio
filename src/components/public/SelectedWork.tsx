@@ -70,8 +70,21 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
           return (
             <div
               key={project.id}
-              className="group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 transition-colors duration-200"
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+              }}
+              className="group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 transition-all duration-300"
             >
+              {/* Dynamic Interactive Cursor Spotlight */}
+              <div
+                className="pointer-events-none absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  background: `radial-gradient(550px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${project.accentColor}25, transparent 70%)`,
+                }}
+              />
+
               {/* Inner ambient glow background matching the card's accent */}
               <div
                 className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-[90px] opacity-25 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none"

@@ -21,6 +21,7 @@ import CustomCursor from '@/components/public/CustomCursor';
 import ScrollAnimationManager from '@/components/public/ScrollAnimationManager';
 import Navbar from '@/components/public/Navbar';
 import Hero from '@/components/public/Hero';
+import InfiniteMarquee from '@/components/public/InfiniteMarquee';
 import SelectedWork from '@/components/public/SelectedWork';
 import AboutSection from '@/components/public/AboutSection';
 import ExperienceEducationCerts from '@/components/public/ExperienceEducationCerts';
@@ -93,6 +94,9 @@ export default function PortfolioClientView({
 
       {/* Hero Section */}
       <Hero profile={profile} />
+
+      {/* Infinite Animated Marquee Ribbon */}
+      <InfiniteMarquee />
 
       {/* Selected Work (Projects) */}
       <SelectedWork projects={projects} />

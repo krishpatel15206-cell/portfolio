@@ -118,11 +118,11 @@ export default function AboutSection({ profile, skills }: AboutSectionProps) {
               return (
                 <div
                   key={skill.id}
-                  className={`anim-skill-item group relative p-4 rounded-2xl flex flex-col items-center justify-center text-center border will-change-transform ${
+                  className={`group relative p-4 rounded-2xl flex flex-col items-center justify-center text-center border transition-all duration-300 ${
                     isDesign
-                      ? 'bg-[#14151a] border-[#262832] hover:border-[#ccff00]/60 hover:bg-[#181a22]'
-                      : 'bg-[#101114] border-[#1d1f26] hover:border-[#38bdf8]/50 hover:bg-[#14151a]'
-                  } hover:scale-105 hover:shadow-xl`}
+                      ? 'bg-[#14151a] border-[#262832] hover:border-[#ccff00]/80 hover:bg-[#181a22] hover:shadow-lg hover:shadow-[#ccff00]/15'
+                      : 'bg-[#101114] border-[#1d1f26] hover:border-[#38bdf8]/70 hover:bg-[#14151a] hover:shadow-lg hover:shadow-[#38bdf8]/15'
+                  } hover:-translate-y-1.5`}
                 >
                   {/* Icon Frame */}
                   <div className="w-10 h-10 rounded-xl bg-[#08080a] border border-[#27272a] flex items-center justify-center group-hover:border-[#ccff00]/40 transition-colors">

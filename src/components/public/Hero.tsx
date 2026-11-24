@@ -145,8 +145,8 @@ export default function Hero({ profile }: HeroProps) {
 
               {/* Designer Canvas Body */}
               <div className="pt-3.5 space-y-3.5">
-                {/* Designer Cursor */}
-                <div className="relative flex items-center gap-2 -ml-1 z-20">
+                {/* Designer Animated Cursor Patrol */}
+                <div className="animate-cursor-patrol relative flex items-center gap-2 -ml-1 z-20">
                   <svg className="w-4 h-4 text-[#ccff00] drop-shadow-md" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M4 2L20 10L12 13L9 21L4 2Z" />
                   </svg>
@@ -166,7 +166,7 @@ export default function Hero({ profile }: HeroProps) {
                     </span>
                   </div>
 
-                  {/* Vector Pen Bezier Curve SVG */}
+                  {/* Vector Pen Bezier Curve with Live Drawing Loop */}
                   <div className="relative h-14 w-full rounded-xl bg-[#0c0d10] border border-[#1e2028] flex items-center justify-center overflow-hidden px-2">
                     <svg className="w-full h-10" viewBox="0 0 240 50" fill="none">
                       <path d="M0 25 H240" stroke="#1f2129" strokeDasharray="3 3" />
@@ -176,6 +176,7 @@ export default function Hero({ profile }: HeroProps) {
                         stroke="#ccff00"
                         strokeWidth="2.5"
                         strokeLinecap="round"
+                        className="animate-draw-path"
                       />
                       <circle cx="20" cy="38" r="3.5" fill="#ccff00" stroke="#000" strokeWidth="1.5" />
                       <circle cx="150" cy="15" r="3.5" fill="#ccff00" stroke="#000" strokeWidth="1.5" />

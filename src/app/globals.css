@@ -119,6 +119,64 @@ body {
   animation: float-subtle 4s ease-in-out infinite;
 }
 
+/* Continuous Infinite Marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Live Figma Pen Tool Drawing Curve */
+@keyframes draw-path {
+  0% {
+    stroke-dashoffset: 350;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -350;
+  }
+}
+
+.animate-draw-path {
+  stroke-dasharray: 350;
+  animation: draw-path 5.5s ease-in-out infinite;
+}
+
+/* Figma Designer Cursor Patrol */
+@keyframes cursor-patrol {
+  0%, 100% {
+    transform: translate(0px, 0px);
+  }
+  25% {
+    transform: translate(28px, 14px);
+  }
+  50% {
+    transform: translate(12px, 24px);
+  }
+  75% {
+    transform: translate(-6px, 10px);
+  }
+}
+
+.animate-cursor-patrol {
+  animation: cursor-patrol 6.5s ease-in-out infinite;
+}
+
 /* Accessibility: Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
   * {
