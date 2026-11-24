@@ -12,7 +12,7 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null);
 
   return (
-    <section id="certificates" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto border-t border-[#222329]/60">
+    <section id="certificates" className="scroll-mt-20 py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto border-t border-[#222329]/60">
       {/* Section Header */}
       <div className="scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10 border-b border-[#222329]">
         <div>
@@ -57,6 +57,17 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
               <p className="text-sm text-[#8e909a] mt-2">
                 {cert.issuer} {cert.grade ? `• ${cert.grade}` : ''}
               </p>
+
+              {cert.imageUrl && (
+                <div className="mt-4 relative w-full h-32 rounded-xl overflow-hidden border border-[#1e2029] bg-[#0c0d10]">
+                  <img
+                    src={cert.imageUrl}
+                    alt={cert.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#121316] via-transparent to-transparent opacity-50" />
+                </div>
+              )}
             </div>
 
             <div className="mt-6 pt-4 border-t border-[#1e2029] flex items-center justify-between">
@@ -110,11 +121,22 @@ export default function CertificatesSection({ certificates }: CertificatesSectio
             </div>
 
             <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-              <div>
+              <div className="flex items-center gap-3">
                 {selectedCert.grade && (
                   <span className="text-xs font-semibold px-3 py-1.5 rounded-full bg-[#1c2214] border border-[#ccff00]/30 text-[#ccff00] font-mono">
                     {selectedCert.grade}
                   </span>
+                )}
+                {selectedCert.imageUrl && (
+                  <a
+                    href={selectedCert.imageUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#181920] hover:bg-[#22232c] border border-[#272833] text-white text-xs font-semibold transition-colors"
+                  >
+                    <span>Open Full Image</span>
+                    <ExternalLink className="w-3 h-3 text-[#ccff00]" />
+                  </a>
                 )}
               </div>
 

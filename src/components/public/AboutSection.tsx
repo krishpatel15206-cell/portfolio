@@ -60,7 +60,7 @@ export default function AboutSection({ profile, skills }: AboutSectionProps) {
   };
 
   return (
-    <section id="about" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
+    <section id="about" className="scroll-mt-20 py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         {/* Left Column: About Me Bio & Headline */}
         <div className="scroll-reveal lg:col-span-6 flex flex-col justify-start">
@@ -77,7 +77,11 @@ export default function AboutSection({ profile, skills }: AboutSectionProps) {
             MINDSET.
           </h3>
 
-          <div className="mt-8 space-y-4 text-sm sm:text-base text-[#a1a1aa] leading-relaxed">
+          <div
+            onClick={() => setShowFullBioModal(true)}
+            className="mt-8 space-y-4 text-sm sm:text-base text-[#a1a1aa] leading-relaxed cursor-pointer p-4 -m-4 rounded-2xl hover:bg-[#121316]/50 transition-colors"
+            title="Click to view full bio & details"
+          >
             <p>
               I&apos;m <span className="text-white font-medium">Krish Patel</span>, a Computer Science and Design student passionate about UI/UX design, visual storytelling and creating user-friendly digital experiences.
             </p>

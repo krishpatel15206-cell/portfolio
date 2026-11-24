@@ -18,28 +18,28 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
       setIsScrolled(window.scrollY > 40);
 
       // If near bottom of the page, activate contact
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80) {
         setActiveSection('contact');
         return;
       }
 
-      // Detect active section
-      const sectionOrder = [
-        { id: 'contact', navId: 'contact' },
-        { id: 'certificates', navId: 'certificates' },
-        { id: 'education', navId: 'experience' },
-        { id: 'experience', navId: 'experience' },
-        { id: 'about', navId: 'about' },
-        { id: 'work', navId: 'work' },
-        { id: 'hero', navId: 'hero' },
-      ];
+      // If near top of the page, activate hero
+      if (window.scrollY < 200) {
+        setActiveSection('hero');
+        return;
+      }
 
-      for (const section of sectionOrder) {
-        const el = document.getElementById(section.id);
+      // Focal detection line at 38% viewport height
+      const focalLine = window.scrollY + window.innerHeight * 0.38;
+      const sections = ['work', 'about', 'experience', 'education', 'certificates', 'contact'];
+
+      for (const id of sections) {
+        const el = document.getElementById(id);
         if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= 100) {
-            setActiveSection(section.navId);
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (focalLine >= top && focalLine < top + height) {
+            setActiveSection(id);
             return;
           }
         }
@@ -55,6 +55,7 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
     { name: 'Work', href: '#work', id: 'work' },
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Experience', href: '#experience', id: 'experience' },
+    { name: 'Education', href: '#education', id: 'education' },
     { name: 'Certificates', href: '#certificates', id: 'certificates' },
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];

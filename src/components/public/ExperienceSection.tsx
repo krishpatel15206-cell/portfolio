@@ -9,7 +9,7 @@ interface ExperienceSectionProps {
 
 export default function ExperienceSection({ experiences }: ExperienceSectionProps) {
   return (
-    <section id="experience" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto border-t border-[#222329]/60">
+    <section id="experience" className="scroll-mt-20 py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto border-t border-[#222329]/60">
       {/* Section Header */}
       <div className="scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-10 border-b border-[#222329]">
         <div>

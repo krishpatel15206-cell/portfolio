@@ -44,7 +44,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   };
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32 px-6 sm:px-8 max-w-7xl mx-auto overflow-hidden">
+    <section id="contact" className="scroll-mt-20 relative py-24 sm:py-32 px-6 sm:px-8 max-w-7xl mx-auto overflow-hidden">
       {/* Wave Mesh Glow Background matching mockup */}
       <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#ccff00]/10 via-[#ccff00]/5 to-transparent blur-3xl pointer-events-none" />
 

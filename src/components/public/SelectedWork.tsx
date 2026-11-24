@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { ArrowUpRight, ArrowRight, ExternalLink } from 'lucide-react';
 import { Project } from '@/types/portfolio';
 
@@ -11,6 +12,7 @@ interface SelectedWorkProps {
 }
 
 export default function SelectedWork({ projects }: SelectedWorkProps) {
+  const router = useRouter();
   const [activeFilter, setActiveFilter] = useState<string>('all');
 
   const filteredProjects = projects.filter((p) => {
@@ -22,7 +24,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
   });
 
   return (
-    <section id="work" className="py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
+    <section id="work" className="scroll-mt-20 py-20 sm:py-28 px-6 sm:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
       <div className="scroll-reveal flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-[#222329]/60">
         <div>
@@ -70,12 +72,19 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
           return (
             <div
               key={project.id}
+              onClick={() => {
+                if (project.hasCaseStudy) {
+                  router.push(`/projects/${project.slug}`);
+                } else if (project.figmaUrl && project.figmaUrl.trim() !== '' && project.figmaUrl !== 'https://figma.com') {
+                  window.open(project.figmaUrl, '_blank', 'noopener,noreferrer');
+                }
+              }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 e.currentTarget.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
               }}
-              className="scroll-reveal group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#383a45] overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/60 transition-all duration-300"
+              className="scroll-reveal group relative rounded-3xl bg-[#121316] border border-[#222329] hover:border-[#ccff00]/60 overflow-hidden flex flex-col justify-between p-6 sm:p-8 hover:shadow-2xl hover:shadow-black/70 transition-all duration-300 cursor-pointer"
             >
               {/* Dynamic Interactive Cursor Spotlight */}
               <div
@@ -152,6 +161,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                       href={project.figmaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="p-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#a1a1aa] hover:text-white transition-colors"
                       title="View in Figma"
                     >
@@ -162,6 +172,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                   {project.hasCaseStudy ? (
                     <Link
                       href={`/projects/${project.slug}`}
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-black group-hover:bg-[#ccff00] transition-all duration-300 font-bold text-xs uppercase shadow-lg"
                       aria-label={`View ${project.title}`}
                     >
@@ -173,6 +184,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                       href={project.figmaUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#ccff00] border border-[#27272a] hover:border-[#ccff00] transition-all text-xs font-semibold uppercase"
                     >
                       <span>Figma Prototype</span>
@@ -183,6 +195,7 @@ export default function SelectedWork({ projects }: SelectedWorkProps) {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#1a1b20] hover:bg-[#27272a] text-[#38bdf8] border border-[#27272a] hover:border-[#38bdf8] transition-all text-xs font-semibold uppercase"
                     >
                       <span>GitHub</span>

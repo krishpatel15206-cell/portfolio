@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { FileText, Download, ExternalLink, Save, Check, UploadCloud } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { FileText, Download, ExternalLink, Save, Check, UploadCloud, AlertCircle } from 'lucide-react';
 import { getProfile, saveProfile } from '@/lib/storage';
 import { Profile } from '@/types/portfolio';
 
@@ -9,6 +9,8 @@ export default function AdminResumePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [resumeUrl, setResumeUrl] = useState('/resume.pdf');
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     async function load() {
@@ -20,6 +22,37 @@ export default function AdminResumePage() {
     }
     load();
   }, []);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.url) {
+        setResumeUrl(data.url);
+        if (profile) {
+          const updated = { ...profile, resumeUrl: data.url };
+          setProfile(updated);
+          await saveProfile(updated);
+        }
+        setSavedSuccess(true);
+        setTimeout(() => setSavedSuccess(false), 3000);
+      }
+    } catch (err) {
+      console.error('Failed to upload resume PDF:', err);
+      alert('Upload failed. Please try again.');
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,7 +76,7 @@ export default function AdminResumePage() {
           Resume Manager
         </h1>
         <p className="text-xs text-[#a1a1aa] mt-1">
-          Configure the public resume PDF file downloaded by recruiters from the header and footer buttons.
+          Upload and configure the official resume PDF downloaded by recruiters and hiring managers.
         </p>
       </div>
 
@@ -55,39 +88,69 @@ export default function AdminResumePage() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Form */}
-        <form onSubmit={handleSave} className="p-6 rounded-3xl bg-[#121316] border border-[#1e2025] space-y-6">
-          <div>
-            <label className="block text-xs font-semibold text-[#a1a1aa] uppercase mb-1.5">
-              Public Resume File / URL
-            </label>
+        {/* Upload & Form Box */}
+        <div className="p-6 rounded-3xl bg-[#121316] border border-[#1e2025] space-y-6">
+          {/* Direct File Uploader Dropzone */}
+          <div className="p-6 rounded-2xl bg-[#16171b] border-2 border-dashed border-[#27272a] hover:border-[#ccff00]/60 transition-colors text-center space-y-3">
             <input
-              type="text"
-              required
-              value={resumeUrl}
-              onChange={(e) => setResumeUrl(e.target.value)}
-              placeholder="/resume.pdf or https://..."
-              className="w-full px-4 py-3 rounded-xl bg-[#18191e] border border-[#27272a] text-white text-sm focus:border-[#ccff00] focus:outline-none font-mono"
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileUpload}
+              accept=".pdf,application/pdf"
+              className="hidden"
             />
-            <p className="text-[11px] text-[#71717a] mt-2">
-              Default is <code className="text-[#ccff00]">/resume.pdf</code> located in your portfolio&apos;s public folder, or you can paste a Google Drive / Supabase Storage public link.
-            </p>
+            <div className="w-12 h-12 rounded-2xl bg-[#1c2214] border border-[#ccff00]/30 flex items-center justify-center mx-auto text-[#ccff00]">
+              <UploadCloud className="w-6 h-6 stroke-[2]" />
+            </div>
+
+            <div>
+              <h3 className="font-['Space_Grotesk'] text-base font-bold text-white">
+                Upload New Resume PDF
+              </h3>
+              <p className="text-xs text-[#71717a] mt-1">
+                Select your latest PDF document directly from your computer.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              disabled={uploading}
+              onClick={() => fileInputRef.current?.click()}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50"
+            >
+              <UploadCloud className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span>{uploading ? 'Uploading...' : 'Choose PDF File'}</span>
+            </button>
           </div>
 
-          <div className="p-4 rounded-2xl bg-[#16171b] border border-[#222329] space-y-2 text-xs text-[#a1a1aa]">
-            <span className="font-semibold text-white block">How to upload your PDF file:</span>
-            <p>1. Copy your final resume PDF to <code className="text-[#ccff00]">public/resume.pdf</code> in this project folder, OR</p>
-            <p>2. Upload to Supabase Storage (<code className="text-[#ccff00]">portfolio-assets</code> bucket) and paste the public URL above.</p>
-          </div>
+          {/* Manual URL Input */}
+          <form onSubmit={handleSave} className="space-y-4 pt-2">
+            <div>
+              <label className="block text-xs font-semibold text-[#a1a1aa] uppercase mb-1.5">
+                Or Enter Resume URL / Path
+              </label>
+              <input
+                type="text"
+                required
+                value={resumeUrl}
+                onChange={(e) => setResumeUrl(e.target.value)}
+                placeholder="/resume.pdf or https://..."
+                className="w-full px-4 py-3 rounded-xl bg-[#18191e] border border-[#27272a] text-white text-sm focus:border-[#ccff00] focus:outline-none font-mono"
+              />
+              <p className="text-[11px] text-[#71717a] mt-2">
+                Stored path or public Google Drive / cloud storage URL.
+              </p>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full py-3.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#ccff00]/20"
-          >
-            <Save className="w-4 h-4" />
-            <span>Update Public Resume</span>
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full py-3.5 rounded-full bg-[#18191e] hover:bg-[#222329] border border-[#27272a] hover:border-[#ccff00] text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
+            >
+              <Save className="w-4 h-4 text-[#ccff00]" />
+              <span>Save Resume Link</span>
+            </button>
+          </form>
+        </div>
 
         {/* Current Preview Card */}
         <div className="p-6 rounded-3xl bg-[#121316] border border-[#1e2025] space-y-4">
@@ -96,29 +159,30 @@ export default function AdminResumePage() {
               Active Public Document
             </span>
             <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-[#1c2214] border border-[#ccff00]/30 text-[#ccff00]">
-              Online
+              Live
             </span>
           </div>
 
-          <div className="p-8 rounded-2xl bg-[#18191e] border border-[#27272a] flex flex-col items-center justify-center text-center space-y-3">
+          <div className="p-8 rounded-2xl bg-[#18191e] border border-[#27272a] flex flex-col items-center justify-center text-center space-y-4">
             <div className="w-16 h-16 rounded-2xl bg-[#1c2214] border border-[#ccff00]/40 flex items-center justify-center text-[#ccff00]">
               <FileText className="w-8 h-8" />
             </div>
+
             <div>
-              <h3 className="font-['Space_Grotesk'] text-base font-bold text-white">
-                Krish_Patel_Resume.pdf
+              <h3 className="font-['Space_Grotesk'] text-base font-bold text-white break-all max-w-xs">
+                {resumeUrl.split('/').pop() || 'resume.pdf'}
               </h3>
-              <p className="text-xs text-[#71717a] mt-0.5">
-                Target: UI/UX Designer &amp; Design Intern
+              <p className="text-xs text-[#71717a] mt-1 font-mono break-all max-w-xs">
+                {resumeUrl}
               </p>
             </div>
 
-            <div className="pt-2 flex items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <a
                 href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#ccff00] text-black text-xs font-bold uppercase hover:bg-[#b8e600]"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#ccff00] hover:bg-[#b8e600] text-black text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-[#ccff00]/15"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Test Download</span>
@@ -128,7 +192,7 @@ export default function AdminResumePage() {
                 href={resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-full bg-[#27272a] text-[#f4f4f5] hover:text-[#ccff00]"
+                className="p-2.5 rounded-full bg-[#27272a] text-[#f4f4f5] hover:text-[#ccff00] transition-colors"
                 title="Open in new tab"
               >
                 <ExternalLink className="w-4 h-4" />

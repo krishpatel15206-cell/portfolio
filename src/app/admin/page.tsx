@@ -13,7 +13,8 @@ import {
   CheckCircle2, 
   Database,
   Eye,
-  Settings
+  Settings,
+  Upload
 } from 'lucide-react';
 import { getProjects, getCertificates, getExperiences, getProfile } from '@/lib/storage';
 import { isSupabaseConfigured } from '@/lib/supabase';
@@ -71,7 +72,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
         {/* Projects */}
         <Link
           href="/admin/projects"
@@ -108,10 +109,10 @@ export default function AdminDashboardPage() {
             <span className="font-['Space_Grotesk'] text-3xl font-bold text-white group-hover:text-[#ccff00] transition-colors">
               {certificates.length}
             </span>
-            <span className="text-xs text-[#a1a1aa]">verified credentials</span>
+            <span className="text-xs text-[#a1a1aa]">uploaded credentials</span>
           </div>
           <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-            <span>Manage certificates</span>
+            <span>Upload & manage certificates</span>
             <ArrowUpRight className="w-3 h-3" />
           </div>
         </Link>
@@ -133,6 +134,27 @@ export default function AdminDashboardPage() {
           </div>
           <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
             <span>Manage experience</span>
+            <ArrowUpRight className="w-3 h-3" />
+          </div>
+        </Link>
+
+        {/* Resume Manager Card */}
+        <Link
+          href="/admin/resume"
+          className="group p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] transition-all cursor-pointer block hover:shadow-lg hover:shadow-black/40"
+        >
+          <div className="flex items-center justify-between text-[#71717a] group-hover:text-white transition-colors">
+            <span className="text-xs font-semibold uppercase tracking-wider">Resume Asset</span>
+            <FileText className="w-4 h-4 text-[#ccff00]" />
+          </div>
+          <div className="mt-4 flex items-baseline gap-2">
+            <span className="font-['Space_Grotesk'] text-2xl font-bold text-white group-hover:text-[#ccff00] transition-colors">
+              PDF Active
+            </span>
+            <span className="text-xs text-[#22c55e]">Ready</span>
+          </div>
+          <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            <span>Upload & preview</span>
             <ArrowUpRight className="w-3 h-3" />
           </div>
         </Link>
@@ -183,10 +205,10 @@ export default function AdminDashboardPage() {
 
           <Link
             href="/admin/certificates"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#18191e] hover:bg-[#222329] border border-[#27272a] text-white text-xs font-semibold transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#18191e] hover:bg-[#222329] border border-[#27272a] hover:border-[#ccff00]/60 text-white text-xs font-semibold transition-all"
           >
-            <Award className="w-4 h-4 text-[#ccff00]" />
-            <span>Add Certificate</span>
+            <Upload className="w-4 h-4 text-[#ccff00]" />
+            <span>Upload Certificate</span>
           </Link>
 
           <Link
