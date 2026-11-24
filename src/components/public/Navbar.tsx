@@ -17,21 +17,36 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
-      // Detect active section
-      const sections = ['hero', 'work', 'about', 'experience', 'contact'];
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
+      // If near bottom of the page, activate contact
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+        setActiveSection('contact');
+        return;
+      }
+
+      // Detect active section: when at 'certificates', highlight 'experience' so an underline always shows
+      const sectionOrder = [
+        { id: 'contact', navId: 'contact' },
+        { id: 'certificates', navId: 'experience' },
+        { id: 'experience', navId: 'experience' },
+        { id: 'about', navId: 'about' },
+        { id: 'work', navId: 'work' },
+        { id: 'hero', navId: 'hero' },
+      ];
+
+      for (const section of sectionOrder) {
+        const el = document.getElementById(section.id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 200 && rect.bottom >= 200) {
-            setActiveSection(sectionId);
-            break;
+          if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= 100) {
+            setActiveSection(section.navId);
+            return;
           }
         }
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -78,7 +93,7 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.id && link.id !== 'certificates';
+              const isActive = activeSection === link.id;
               return (
                 <a
                   key={link.name}
@@ -128,7 +143,7 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
         <div className="fixed inset-0 z-30 bg-[#08080a]/98 backdrop-blur-xl md:hidden flex flex-col justify-center px-8 py-20 transition-all duration-300">
           <div className="space-y-6 text-center">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.id && link.id !== 'certificates';
+              const isActive = activeSection === link.id;
               return (
                 <div key={link.name}>
                   <a
