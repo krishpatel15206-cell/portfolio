@@ -123,7 +123,7 @@ export default function PortfolioClientView({
       <ContactSection profile={profile} />
 
       {/* Minimal Footer */}
-      <Footer />
+      <Footer email={profile.email} />
     </main>
   );
 }

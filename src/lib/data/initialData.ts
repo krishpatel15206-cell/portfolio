@@ -12,7 +12,7 @@ export const initialProfile: Profile = {
     "I'm continuously learning, experimenting with design tools and building projects to improve my creative and technical skills."
   ],
   location: "Gujarat, India",
-  email: "krishpatel.design@gmail.com",
+  email: "krishpatel15206@gmail.com",
   phone: "+91 98765 43210",
   linkedin: "https://linkedin.com/in/krishpatel-design",
   github: "https://github.com/krishpatel",

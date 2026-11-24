@@ -14,7 +14,7 @@ import {
   FileText,
   Download
 } from 'lucide-react';
-import { getProjects } from '@/lib/storage';
+import { getProjects, getProfile } from '@/lib/storage';
 import Navbar from '@/components/public/Navbar';
 import Footer from '@/components/public/Footer';
 import CustomCursor from '@/components/public/CustomCursor';
@@ -24,7 +24,7 @@ interface ProjectPageProps {
 }
 
 export async function generateStaticParams() {
-  const projects = await getProjects();
+  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
   return projects
     .filter((project) => project.hasCaseStudy)
     .map((project) => ({
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const projects = await getProjects();
+  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) return { title: 'Project Not Found | Krish Patel' };
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
 
 export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = await params;
-  const projects = await getProjects();
+  const [projects, profile] = await Promise.all([getProjects(), getProfile()]);
   const currentIndex = projects.findIndex((p) => p.slug === slug);
 
   if (currentIndex === -1 || !projects[currentIndex].hasCaseStudy) {
@@ -346,7 +346,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
         </div>
       </section>
 
-      <Footer />
+      <Footer email={profile.email} />
     </main>
   );
 }

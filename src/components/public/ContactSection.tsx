@@ -15,8 +15,10 @@ export default function ContactSection({ profile }: ContactSectionProps) {
   const [formSent, setFormSent] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
+  const activeEmail = profile.email || 'krishpatel15206@gmail.com';
+
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText(profile.email);
+    navigator.clipboard.writeText(activeEmail);
     setCopied(true);
     confetti({
       particleCount: 40,
@@ -36,11 +38,19 @@ export default function ContactSection({ profile }: ContactSectionProps) {
       origin: { y: 0.6 },
       colors: ['#ccff00', '#38bdf8', '#a855f7'],
     });
+
+    // Directly open email client with composed message
+    const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Hi Krish,\n\n${formData.message}\n\n---\nFrom: ${formData.name}\nEmail: ${formData.email}`
+    );
+    window.location.href = `mailto:${activeEmail}?subject=${subject}&body=${body}`;
+
     setTimeout(() => {
       setModalOpen(false);
       setFormSent(false);
       setFormData({ name: '', email: '', message: '' });
-    }, 2000);
+    }, 2500);
   };
 
   return (
@@ -63,9 +73,12 @@ export default function ContactSection({ profile }: ContactSectionProps) {
             <p className="text-sm sm:text-base text-[#d4d4d8] font-medium max-w-md">
               Have a project, opportunity or just want to say hi? I&apos;d love to connect.
             </p>
-            <p className="text-xs text-[#71717a] mt-1 font-mono">
-              {profile.email}
-            </p>
+            <a
+              href={`mailto:${activeEmail}`}
+              className="text-xs sm:text-sm text-[#71717a] hover:text-[#ccff00] mt-1.5 font-mono inline-block transition-colors"
+            >
+              {activeEmail}
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center gap-4">
@@ -77,7 +90,7 @@ export default function ContactSection({ profile }: ContactSectionProps) {
               <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </button>
 
-            {/* Social Icons */}
+            {/* Social & Mail Icons - Exactly uniform circular buttons */}
             <div className="flex items-center gap-2.5">
               {profile.linkedin && (
                 <a
@@ -107,13 +120,14 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                 </a>
               )}
 
-              <button
-                onClick={handleCopyEmail}
+              {/* Exact same as LinkedIn - Clean single circular mail button */}
+              <a
+                href={`mailto:${activeEmail}`}
                 className="w-12 h-12 rounded-full bg-[#16171b] border border-[#27272a] hover:border-[#ccff00] text-[#f4f4f5] hover:text-[#ccff00] flex items-center justify-center transition-all hover:scale-105"
-                title="Copy Email Address"
+                title={`Email ${activeEmail}`}
               >
-                {copied ? <Check className="w-4 h-4 text-[#ccff00]" /> : <Mail className="w-4 h-4" />}
-              </button>
+                <Mail className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
@@ -196,18 +210,30 @@ export default function ContactSection({ profile }: ContactSectionProps) {
                   />
                 </div>
 
-                <div className="pt-2 flex items-center justify-between">
-                  <button
-                    type="button"
-                    onClick={handleCopyEmail}
-                    className="text-xs text-[#71717a] hover:text-[#ccff00] transition-colors"
-                  >
-                    Or copy: {profile.email}
-                  </button>
+                <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={handleCopyEmail}
+                      className="text-xs text-[#a1a1aa] hover:text-[#ccff00] transition-colors flex items-center gap-1 font-mono"
+                    >
+                      <Copy className="w-3 h-3" />
+                      <span>{copied ? 'Copied!' : `Copy ${activeEmail}`}</span>
+                    </button>
+                    <a
+                      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(activeEmail)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-[#ccff00] hover:underline transition-colors flex items-center gap-1 font-mono"
+                    >
+                      <span>Open in Gmail</span>
+                      <ArrowUpRight className="w-3 h-3" />
+                    </a>
+                  </div>
 
                   <button
                     type="submit"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#ccff00] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#b8e600] transition-colors"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#ccff00] text-black font-bold text-xs uppercase tracking-wider hover:bg-[#b8e600] transition-colors shadow-md shadow-[#ccff00]/20"
                   >
                     <span>Send Message</span>
                     <Send className="w-3.5 h-3.5" />
