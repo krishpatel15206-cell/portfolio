@@ -23,10 +23,11 @@ export default function Navbar({ resumeUrl = '/resume.pdf' }: NavbarProps) {
         return;
       }
 
-      // Detect active section: when at 'certificates', highlight 'experience' so an underline always shows
+      // Detect active section
       const sectionOrder = [
         { id: 'contact', navId: 'contact' },
-        { id: 'certificates', navId: 'experience' },
+        { id: 'certificates', navId: 'certificates' },
+        { id: 'education', navId: 'experience' },
         { id: 'experience', navId: 'experience' },
         { id: 'about', navId: 'about' },
         { id: 'work', navId: 'work' },

@@ -24,7 +24,9 @@ import Hero from '@/components/public/Hero';
 import InfiniteMarquee from '@/components/public/InfiniteMarquee';
 import SelectedWork from '@/components/public/SelectedWork';
 import AboutSection from '@/components/public/AboutSection';
-import ExperienceEducationCerts from '@/components/public/ExperienceEducationCerts';
+import ExperienceSection from '@/components/public/ExperienceSection';
+import EducationSection from '@/components/public/EducationSection';
+import CertificatesSection from '@/components/public/CertificatesSection';
 import ContactSection from '@/components/public/ContactSection';
 import Footer from '@/components/public/Footer';
 
@@ -118,12 +120,14 @@ export default function PortfolioClientView({
       {/* About Me & Key Skills Grid */}
       <AboutSection profile={profile} skills={skills} />
 
-      {/* 3-Column Experience, Education & Certificates */}
-      <ExperienceEducationCerts
-        experiences={experiences}
-        educations={educations}
-        certificates={certificates}
-      />
+      {/* Experience Section */}
+      <ExperienceSection experiences={experiences} />
+
+      {/* Education Section */}
+      <EducationSection educations={educations} />
+
+      {/* Certificates Section */}
+      <CertificatesSection certificates={certificates} />
 
       {/* Contact Section */}
       <ContactSection profile={profile} />
