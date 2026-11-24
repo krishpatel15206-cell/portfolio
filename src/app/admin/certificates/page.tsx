@@ -90,15 +90,19 @@ export default function AdminCertificatesPage() {
         {certificates.map((cert) => (
           <div
             key={cert.id}
-            className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#2d3039] transition-all flex flex-col justify-between"
+            onClick={() => {
+              setIsNew(false);
+              setEditingCert(cert);
+            }}
+            className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] hover:shadow-xl hover:shadow-black/50 transition-all cursor-pointer group flex flex-col justify-between"
           >
             <div>
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#1a1c14] border border-[#ccff00]/30 flex items-center justify-center shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-[#1a1c14] border border-[#ccff00]/30 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
                   <Award className="w-6 h-6 text-[#ccff00]" />
                 </div>
                 <div>
-                  <h3 className="font-['Space_Grotesk'] text-lg font-bold text-white">
+                  <h3 className="font-['Space_Grotesk'] text-lg font-bold text-white group-hover:text-[#ccff00] transition-colors">
                     {cert.title}
                   </h3>
                   <p className="text-xs text-[#ccff00] font-semibold mt-0.5">
@@ -113,7 +117,7 @@ export default function AdminCertificatesPage() {
               </div>
 
               {/* Certificate Mockup Preview */}
-              <div className="mt-4 relative w-full h-36 rounded-xl overflow-hidden border border-[#27272a] bg-[#0c0d10]">
+              <div className="mt-4 relative w-full h-36 rounded-xl overflow-hidden border border-[#27272a] group-hover:border-[#ccff00]/40 bg-[#0c0d10] transition-colors">
                 <img
                   src={cert.imageUrl}
                   alt={cert.title}
@@ -128,6 +132,7 @@ export default function AdminCertificatesPage() {
                   href={cert.credentialUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="text-xs text-[#71717a] hover:text-[#ccff00] flex items-center gap-1"
                 >
                   <span>Verification Link</span>
@@ -139,17 +144,25 @@ export default function AdminCertificatesPage() {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => {
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setIsNew(false);
                     setEditingCert(cert);
                   }}
-                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ccff00] hover:border-[#ccff00]"
+                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ccff00] group-hover:border-[#ccff00] transition-colors"
+                  title="Edit Certificate"
                 >
                   <Pencil className="w-3.5 h-3.5" />
                 </button>
                 <button
-                  onClick={() => handleDelete(cert.id)}
-                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ef4444] hover:bg-[#ef4444]/10"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(cert.id);
+                  }}
+                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors"
+                  title="Delete Certificate"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>

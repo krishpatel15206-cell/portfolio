@@ -242,14 +242,19 @@ export default function AdminProjectsPage() {
         {projects.map((project) => (
           <div
             key={project.id}
-            className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#2d3039] transition-all flex flex-col justify-between"
+            onClick={() => {
+              setIsNew(false);
+              setEditingProject(project);
+            }}
+            className="group p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] hover:shadow-xl hover:shadow-black/50 transition-all cursor-pointer flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs font-mono text-[#71717a]">{project.year}</span>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => {
+                    onClick={(e) => {
+                      e.stopPropagation();
                       const updated = projects.map(p => p.id === project.id ? { ...p, hasCaseStudy: !p.hasCaseStudy } : p);
                       setProjects(updated);
                       saveProjects(updated);
@@ -265,7 +270,10 @@ export default function AdminProjectsPage() {
                   </button>
 
                   <button
-                    onClick={() => handleToggleFeatured(project.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggleFeatured(project.id);
+                    }}
                     className={`p-1.5 rounded-lg border transition-colors ${
                       project.featured
                         ? 'bg-[#1c2214] border-[#ccff00]/40 text-[#ccff00]'
@@ -277,7 +285,10 @@ export default function AdminProjectsPage() {
                   </button>
 
                   <button
-                    onClick={() => handleTogglePublished(project.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleTogglePublished(project.id);
+                    }}
                     className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded transition-colors ${
                       project.published
                         ? 'bg-[#22c55e]/10 border border-[#22c55e]/30 text-[#22c55e]'
@@ -290,16 +301,16 @@ export default function AdminProjectsPage() {
               </div>
 
               <div className="mt-4 flex gap-4">
-                <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-[#27272a] bg-[#0c0d10]">
+                <div className="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border border-[#27272a] group-hover:border-[#ccff00]/40 bg-[#0c0d10] transition-colors">
                   <img
                     src={project.coverImage}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                   />
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="font-['Space_Grotesk'] text-lg font-bold text-white">
+                  <h3 className="font-['Space_Grotesk'] text-lg font-bold text-white group-hover:text-[#ccff00] transition-colors">
                     {project.title}
                   </h3>
                   <span className="text-xs text-[#ccff00] font-medium block mt-0.5">
@@ -333,6 +344,7 @@ export default function AdminProjectsPage() {
               <Link
                 href={`/projects/${project.slug}`}
                 target="_blank"
+                onClick={(e) => e.stopPropagation()}
                 className="text-xs text-[#71717a] hover:text-[#ccff00] flex items-center gap-1"
               >
                 <span>View Case Study</span>
@@ -341,19 +353,25 @@ export default function AdminProjectsPage() {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => {
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
                     setIsNew(false);
                     setEditingProject(project);
                   }}
-                  className="px-3.5 py-1.5 rounded-lg bg-[#18191e] border border-[#27272a] text-xs font-semibold text-[#f4f4f5] hover:border-[#ccff00] flex items-center gap-1.5"
+                  className="px-3.5 py-1.5 rounded-lg bg-[#18191e] border border-[#27272a] text-xs font-semibold text-[#f4f4f5] group-hover:border-[#ccff00] flex items-center gap-1.5 transition-colors"
                 >
                   <Pencil className="w-3.5 h-3.5 text-[#ccff00]" />
                   <span>Edit Project</span>
                 </button>
 
                 <button
-                  onClick={() => handleDelete(project.id)}
-                  className="p-1.5 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ef4444] hover:bg-[#ef4444]/10"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(project.id);
+                  }}
+                  className="p-1.5 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors"
                   title="Delete Project"
                 >
                   <Trash2 className="w-3.5 h-3.5" />

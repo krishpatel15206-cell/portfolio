@@ -73,90 +73,90 @@ export default function AdminDashboardPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Projects */}
-        <div className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#2d3039] transition-all">
-          <div className="flex items-center justify-between text-[#71717a]">
+        <Link
+          href="/admin/projects"
+          className="group p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] transition-all cursor-pointer block hover:shadow-lg hover:shadow-black/40"
+        >
+          <div className="flex items-center justify-between text-[#71717a] group-hover:text-white transition-colors">
             <span className="text-xs font-semibold uppercase tracking-wider">Projects</span>
             <FolderGit2 className="w-4 h-4 text-[#ccff00]" />
           </div>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white">
+            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white group-hover:text-[#ccff00] transition-colors">
               {projects.length}
             </span>
             <span className="text-xs text-[#a1a1aa]">
               ({projects.filter(p => p.featured).length} featured)
             </span>
           </div>
-          <Link
-            href="/admin/projects"
-            className="mt-4 text-xs font-semibold text-[#ccff00] hover:underline flex items-center gap-1"
-          >
+          <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
             <span>Manage projects</span>
             <ArrowUpRight className="w-3 h-3" />
-          </Link>
-        </div>
+          </div>
+        </Link>
 
         {/* Certificates */}
-        <div className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#2d3039] transition-all">
-          <div className="flex items-center justify-between text-[#71717a]">
+        <Link
+          href="/admin/certificates"
+          className="group p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] transition-all cursor-pointer block hover:shadow-lg hover:shadow-black/40"
+        >
+          <div className="flex items-center justify-between text-[#71717a] group-hover:text-white transition-colors">
             <span className="text-xs font-semibold uppercase tracking-wider">Certificates</span>
             <Award className="w-4 h-4 text-[#ccff00]" />
           </div>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white">
+            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white group-hover:text-[#ccff00] transition-colors">
               {certificates.length}
             </span>
             <span className="text-xs text-[#a1a1aa]">verified credentials</span>
           </div>
-          <Link
-            href="/admin/certificates"
-            className="mt-4 text-xs font-semibold text-[#ccff00] hover:underline flex items-center gap-1"
-          >
+          <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
             <span>Manage certificates</span>
             <ArrowUpRight className="w-3 h-3" />
-          </Link>
-        </div>
+          </div>
+        </Link>
 
         {/* Experience Entries */}
-        <div className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#2d3039] transition-all">
-          <div className="flex items-center justify-between text-[#71717a]">
+        <Link
+          href="/admin/experience"
+          className="group p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] transition-all cursor-pointer block hover:shadow-lg hover:shadow-black/40"
+        >
+          <div className="flex items-center justify-between text-[#71717a] group-hover:text-white transition-colors">
             <span className="text-xs font-semibold uppercase tracking-wider">Internships</span>
             <Briefcase className="w-4 h-4 text-[#ccff00]" />
           </div>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white">
+            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white group-hover:text-[#ccff00] transition-colors">
               {experiences.length}
             </span>
             <span className="text-xs text-[#a1a1aa]">roles listed</span>
           </div>
-          <Link
-            href="/admin/experience"
-            className="mt-4 text-xs font-semibold text-[#ccff00] hover:underline flex items-center gap-1"
-          >
+          <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
             <span>Manage experience</span>
             <ArrowUpRight className="w-3 h-3" />
-          </Link>
-        </div>
+          </div>
+        </Link>
 
         {/* CGPA Profile Field */}
-        <div className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#2d3039] transition-all">
-          <div className="flex items-center justify-between text-[#71717a]">
+        <Link
+          href="/admin/profile"
+          className="group p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] transition-all cursor-pointer block hover:shadow-lg hover:shadow-black/40"
+        >
+          <div className="flex items-center justify-between text-[#71717a] group-hover:text-white transition-colors">
             <span className="text-xs font-semibold uppercase tracking-wider">B.Tech CGPA</span>
             <Sparkles className="w-4 h-4 text-[#ccff00]" />
           </div>
           <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white">
+            <span className="font-['Space_Grotesk'] text-3xl font-bold text-white group-hover:text-[#ccff00] transition-colors">
               {profile?.cgpa || '8.25'}
             </span>
             <span className="text-xs text-[#eab308]">Editable field</span>
           </div>
-          <Link
-            href="/admin/profile"
-            className="mt-4 text-xs font-semibold text-[#ccff00] hover:underline flex items-center gap-1"
-          >
+          <div className="mt-4 text-xs font-semibold text-[#ccff00] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
             <span>Update profile & bio</span>
             <ArrowUpRight className="w-3 h-3" />
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
 
       {/* Quick Action Shortcuts */}
@@ -215,12 +215,13 @@ export default function AdminDashboardPage() {
 
         <div className="divide-y divide-[#1e2025]">
           {projects.slice(0, 5).map((project) => (
-            <div
+            <Link
               key={project.id}
-              className="py-3.5 flex items-center justify-between gap-4"
+              href="/admin/projects"
+              className="py-3.5 px-3 -mx-3 rounded-xl flex items-center justify-between gap-4 hover:bg-[#16181f] transition-colors cursor-pointer group"
             >
               <div>
-                <h4 className="font-['Space_Grotesk'] text-sm font-bold text-white">
+                <h4 className="font-['Space_Grotesk'] text-sm font-bold text-white group-hover:text-[#ccff00] transition-colors">
                   {project.title}
                 </h4>
                 <p className="text-xs text-[#71717a]">{project.category} • {project.year}</p>
@@ -237,16 +238,12 @@ export default function AdminDashboardPage() {
                 }`}>
                   {project.published ? 'Published' : 'Draft'}
                 </span>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  target="_blank"
-                  className="p-1.5 rounded-lg bg-[#18191e] text-[#a1a1aa] hover:text-white"
-                  title="View Public Page"
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                </Link>
+                <span className="text-xs text-[#71717a] group-hover:text-[#ccff00] transition-colors flex items-center gap-1 font-medium">
+                  <span>Edit</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

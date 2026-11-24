@@ -125,13 +125,14 @@ export default function AdminExperiencePage() {
           {experiences.map((exp) => (
             <div
               key={exp.id}
-              className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] flex items-start justify-between gap-4"
+              onClick={() => setEditingExp(exp)}
+              className="p-6 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] hover:shadow-lg transition-all cursor-pointer group flex items-start justify-between gap-4"
             >
               <div>
                 <span className="text-xs font-bold text-[#ccff00] uppercase tracking-wider">
                   {exp.company}
                 </span>
-                <h3 className="font-['Space_Grotesk'] text-base font-bold text-white mt-0.5">
+                <h3 className="font-['Space_Grotesk'] text-base font-bold text-white group-hover:text-[#ccff00] transition-colors mt-0.5">
                   {exp.position}
                 </h3>
                 <span className="text-xs text-[#71717a] font-medium block mt-1">
@@ -147,14 +148,24 @@ export default function AdminExperiencePage() {
 
               <div className="flex items-center gap-2 shrink-0">
                 <button
-                  onClick={() => setEditingExp(exp)}
-                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ccff00] hover:border-[#ccff00]"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditingExp(exp);
+                  }}
+                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ccff00] group-hover:border-[#ccff00] transition-colors"
+                  title="Edit Role"
                 >
                   <Pencil className="w-3.5 h-3.5" />
                 </button>
                 <button
-                  onClick={() => handleDeleteExp(exp.id)}
-                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ef4444] hover:bg-[#ef4444]/10"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteExp(exp.id);
+                  }}
+                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors"
+                  title="Delete Role"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -194,10 +205,11 @@ export default function AdminExperiencePage() {
           {educations.map((edu) => (
             <div
               key={edu.id}
-              className="p-5 rounded-2xl bg-[#121316] border border-[#1e2025] flex items-center justify-between gap-4"
+              onClick={() => setEditingEdu(edu)}
+              className="p-5 rounded-2xl bg-[#121316] border border-[#1e2025] hover:border-[#ccff00]/60 hover:bg-[#15171c] hover:shadow-lg transition-all cursor-pointer group flex items-center justify-between gap-4"
             >
               <div>
-                <h3 className="font-['Space_Grotesk'] text-sm font-bold text-white">
+                <h3 className="font-['Space_Grotesk'] text-sm font-bold text-white group-hover:text-[#ccff00] transition-colors">
                   {edu.degree}
                 </h3>
                 <p className="text-xs text-[#a1a1aa] mt-0.5">{edu.institution}</p>
@@ -211,8 +223,13 @@ export default function AdminExperiencePage() {
 
               <div className="flex items-center gap-2">
                 <button
-                  onClick={() => setEditingEdu(edu)}
-                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ccff00]"
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditingEdu(edu);
+                  }}
+                  className="p-2 rounded-lg bg-[#18191e] border border-[#27272a] text-[#ccff00] group-hover:border-[#ccff00] transition-colors"
+                  title="Edit Degree"
                 >
                   <Pencil className="w-3.5 h-3.5" />
                 </button>
