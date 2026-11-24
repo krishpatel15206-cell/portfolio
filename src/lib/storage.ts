@@ -16,6 +16,7 @@ import {
   initialSkills, 
   initialSiteSettings 
 } from '@/lib/data/initialData';
+import defaultPortfolioData from '@/lib/data/portfolio-data.json';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 
 const STORAGE_KEYS = {
@@ -43,7 +44,7 @@ async function getServerPersistentData(): Promise<any> {
       // ignore
     }
   }
-  return null;
+  return defaultPortfolioData;
 }
 
 // Sync client changes to the server API so server components and all tabs stay updated

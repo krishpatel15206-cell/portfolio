@@ -21,7 +21,7 @@ export const initialProfile: Profile = {
   diplomaCgpa: "7.51/10",
   sscCgpa: "75.66%",
   avatarUrl: "/images/krish-hero-crop.png",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/uploads/1795522545298-krish_patel_resume.pdf",
   lastUpdated: "2026-11-23"
 };
 
@@ -46,7 +46,7 @@ export const initialProjects: Project[] = [
       results: "Complete UI/UX design and branding showcase developed in Figma.",
       learnings: "Deepened practical skills in visual identity systems, typography hierarchy, and mobile layout design."
     },
-    coverImage: "/images/project-thrift-avenue.jpg",
+    coverImage: "/uploads/thrift-avenue-cover.png",
     images: [
       "/images/project-thrift-avenue.jpg",
       "/images/thrift-card-crop.png"
@@ -144,7 +144,7 @@ export const initialProjects: Project[] = [
       results: "Interactive mobile design project.",
       learnings: "Advanced Figma auto-layout and component design."
     },
-    coverImage: "/images/project-gourmetgo.jpg",
+    coverImage: "/uploads/1795521711231-gourmetgo-purple-food-app-showcase.png",
     images: ["/images/project-gourmetgo.jpg"],
     tags: ["UI/UX", "Mobile App", "Figma", "Food Design"],
     accentColor: "#F97316",
@@ -174,7 +174,7 @@ export const initialProjects: Project[] = [
       results: "UI/UX audio concept project in Figma.",
       learnings: "Refined dark mode contrast, typography hierarchy, and playback UI patterns."
     },
-    coverImage: "/images/project-soundix.jpg",
+    coverImage: "/uploads/1795521770282-soundix-premium-audio-showcase.png",
     images: ["/images/project-soundix.jpg"],
     tags: ["UI/UX", "Audio Experience", "Figma", "Music App"],
     accentColor: "#8B5CF6",
@@ -204,7 +204,7 @@ export const initialProjects: Project[] = [
       results: "Visual design and UI/UX concept project.",
       learnings: "Practiced bold display typography and modern asymmetric layouts."
     },
-    coverImage: "/images/project-nike-air.jpg",
+    coverImage: "/uploads/1795522048351-nike-air-ui_ux-sneaker-experience.png",
     images: ["/images/project-nike-air.jpg"],
     tags: ["UI/UX", "E-Commerce", "Branding", "Concept"],
     accentColor: "#CCFF00",
@@ -234,7 +234,7 @@ export const initialProjects: Project[] = [
       results: "Branding and UI design project in Figma.",
       learnings: "Explored sensory visual storytelling and cohesive brand touchpoints."
     },
-    coverImage: "/images/project-brew-haven.jpg",
+    coverImage: "/uploads/1795521922791-brew-haven-coffee-app-showcase.png",
     images: ["/images/project-brew-haven.jpg"],
     tags: ["UI/UX", "Branding", "Packaging", "Mobile App"],
     accentColor: "#D97706",
@@ -323,7 +323,7 @@ export const initialCertificates: Certificate[] = [
     title: "Cloud Computing",
     issuer: "NPTEL",
     grade: "Elite Certificate",
-    imageUrl: "/images/cert-nptel-cloud.jpg",
+    imageUrl: "/uploads/1795523255257-screenshot-2026-11-24-175725.png",
     credentialUrl: "https://nptel.ac.in",
     order: 1
   },
@@ -332,7 +332,7 @@ export const initialCertificates: Certificate[] = [
     title: "Internet of Things (IoT)",
     issuer: "NPTEL",
     grade: "Elite, 86%",
-    imageUrl: "/images/cert-nptel-iot.jpg",
+    imageUrl: "/uploads/1795523295953-screenshot-2026-11-24-175809.png",
     credentialUrl: "https://nptel.ac.in",
     order: 2
   },
@@ -341,7 +341,7 @@ export const initialCertificates: Certificate[] = [
     title: "Python Programming",
     issuer: "Coursera – University of Michigan",
     grade: "Course Certificate",
-    imageUrl: "/images/cert-coursera-python.jpg",
+    imageUrl: "/uploads/1795523338951-screenshot-2026-11-24-175852.png",
     credentialUrl: "https://coursera.org",
     order: 3
   }

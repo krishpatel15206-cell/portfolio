@@ -54,9 +54,21 @@ export default function PortfolioClientView({
   const [certificates, setCertificates] = useState<Certificate[]>(initialCertificates);
   const [skills, setSkills] = useState<Skill[]>(initialSkills);
 
-  // Sync latest updates from storage / server
+  // Sync client-side localStorage overrides or live admin updates
   useEffect(() => {
     async function syncData() {
+      // Avoid overwriting server-rendered data on initial mount if no local overrides exist
+      const hasLocalOverrides = 
+        typeof window !== 'undefined' &&
+        (localStorage.getItem('kp_portfolio_profile') ||
+         localStorage.getItem('kp_portfolio_projects') ||
+         localStorage.getItem('kp_portfolio_experiences') ||
+         localStorage.getItem('kp_portfolio_educations') ||
+         localStorage.getItem('kp_portfolio_certificates') ||
+         localStorage.getItem('kp_portfolio_skills'));
+
+      if (!hasLocalOverrides) return;
+
       try {
         const [p, pr, ex, ed, ce, sk] = await Promise.all([
           getProfile(),
@@ -79,11 +91,30 @@ export default function PortfolioClientView({
 
     syncData();
 
-    window.addEventListener('kp_portfolio_updated', syncData);
-    window.addEventListener('storage', syncData);
+    const handleUpdate = () => {
+      // Force sync when admin updates portfolio
+      Promise.all([
+        getProfile(),
+        getProjects(),
+        getExperiences(),
+        getEducations(),
+        getCertificates(),
+        getSkills(),
+      ]).then(([p, pr, ex, ed, ce, sk]) => {
+        if (p) setProfile(p);
+        if (pr && pr.length > 0) setProjects(pr);
+        if (ex && ex.length > 0) setExperiences(ex);
+        if (ed && ed.length > 0) setEducations(ed);
+        if (ce && ce.length > 0) setCertificates(ce);
+        if (sk && sk.length > 0) setSkills(sk);
+      });
+    };
+
+    window.addEventListener('kp_portfolio_updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
     return () => {
-      window.removeEventListener('kp_portfolio_updated', syncData);
-      window.removeEventListener('storage', syncData);
+      window.removeEventListener('kp_portfolio_updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
     };
   }, []);
 
